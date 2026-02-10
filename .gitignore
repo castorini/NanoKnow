@@ -26,6 +26,9 @@ output/
 .DS_Store
 Thumbs.db
 
+# Temp / test outputs
+tmp/
+
 # Large files
 *.parquet
 *.index
