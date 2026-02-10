@@ -1,1 +1,155 @@
 # NanoKnow
+
+**Project QA benchmarks onto LLM pre-training corpora.**
+
+NanoKnow identifies which benchmark questions have answers in a model's training data, enabling controlled studies of parametric knowledge vs. retrieval-augmented generation (RAG).
+
+## Overview
+
+Given a QA benchmark and a pre-training corpus, NanoKnow produces **relevance judgments (qrels)** that partition questions into:
+
+- **In-corpus**: The answer exists in the training data (the model could have memorized it).
+- **Out-of-corpus**: The answer does not appear in the training data.
+
+The pipeline has three stages:
+
+1. **BM25 Retrieval** — Search the corpus for candidate documents using the question as a query.
+2. **Answer String Matching** — Filter to documents that contain the gold answer as a substring.
+3. **LLM Verification** — Use an LLM judge to filter out coincidental matches (e.g., "Paris" in a passage about Paris, Texas).
+
+## Pre-built Qrels
+
+We provide pre-built qrels for [nanochat](https://github.com/karpathy/nanochat) models trained on [FineWeb-Edu](https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu) (100B tokens):
+
+| Dataset | Questions | In-Corpus | Out-of-Corpus |
+|---------|-----------|-----------|---------------|
+| SQuAD   | 10,570    | 7,490 (71%) | 3,080 (29%) |
+| NQ-Open | 3,610     | 2,389 (66%) | 1,221 (34%) |
+
+Qrels are in `qrels/` in CSV format:
+```
+qid, question, answer, doc_id, answer_offset
+```
+
+## Installation
+
+```bash
+pip install -r requirements.txt
+```
+
+For BM25 retrieval, you also need Java 11+:
+```bash
+# Ubuntu/Debian
+sudo apt install openjdk-11-jdk
+```
+
+## Usage
+
+### Project a new benchmark
+
+```bash
+# Stage 1: BM25 retrieval + answer matching (CPU only)
+python scripts/project.py \
+    --dataset squad \
+    --stage 1 \
+    --index_path /path/to/lucene-index \
+    --output output/squad_stage1.pkl
+
+# Stage 2: LLM verification (requires GPU)
+python scripts/project.py \
+    --stage 2 \
+    --input output/squad_stage1.pkl \
+    --output output/squad_stage2.pkl
+
+# Or run both stages together
+python scripts/project.py \
+    --dataset squad \
+    --stage both \
+    --index_path /path/to/lucene-index \
+    --output output/squad_projected.pkl
+```
+
+### Evaluate a nanochat checkpoint
+
+```bash
+python scripts/evaluate.py \
+    --model pankajmathur/nanochat-d34-sft-hf \
+    --projection output/squad_stage2.pkl \
+    --dataset squad \
+    --fineweb_path /path/to/fineweb-edu-100b-shuffle \
+    --output output/eval_results.pkl
+```
+
+### Analyze frequency effects
+
+```bash
+python scripts/analyze_frequency.py \
+    --eval_dir output/ \
+    --qrel_file qrels/squad_in_corpus.txt \
+    --dataset squad \
+    --output output/frequency_analysis.json
+```
+
+## Building the FineWeb-Edu Index
+
+To build a Lucene index over FineWeb-Edu using [Anserini](https://github.com/castorini/anserini):
+
+```bash
+# Download FineWeb-Edu
+# https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu
+
+# Build index with Anserini (~341 GB)
+python -m pyserini.index.lucene \
+    --collection JsonCollection \
+    --input /path/to/fineweb-edu-jsonl/ \
+    --index /path/to/output-index/ \
+    --generator DefaultLuceneDocumentGenerator \
+    --threads 16
+```
+
+## Repository Structure
+
+```
+NanoKnow/
+├── nanoknow/                  # Core library
+│   ├── retriever.py           # Stage 1: BM25 retrieval + answer matching
+│   ├── verifier.py            # Stage 2: LLM-based verification
+│   └── evaluator.py           # Nanochat evaluation utilities
+├── scripts/                   # Runnable scripts
+│   ├── project.py             # Run the projection pipeline
+│   ├── evaluate.py            # Evaluate nanochat checkpoints
+│   └── analyze_frequency.py   # Frequency analysis
+├── qrels/                     # Pre-built relevance judgments
+│   ├── squad_in_corpus.txt    # SQuAD in-corpus (7,490 questions)
+│   ├── squad_out_corpus.txt   # SQuAD out-of-corpus (3,080 questions)
+│   ├── nq_in_corpus.txt       # NQ in-corpus (2,389 questions)
+│   └── nq_out_corpus.txt      # NQ out-of-corpus (1,221 questions)
+├── requirements.txt
+├── LICENSE
+└── README.md
+```
+
+## Nanochat Checkpoints
+
+We evaluated eight checkpoints across three model scales:
+
+| Scale | Checkpoints |
+|-------|------------|
+| d20 (~561M params) | `sampathchanda/nanochat-d20`, `shu127/nanochat-d20`, `pankajmathur/nanochat-d20` |
+| d32 (~1B params) | `karpathy/nanochat-d32`, `Antigma/nanochat-d32` |
+| d34-sft (~1.4B params) | `renatocastro33/nanochat-d34-sft`, `victoremnm/nanochat-d34-sft`, `pankajmathur/nanochat-d34-sft-hf` |
+
+## Citation
+
+```bibtex
+@inproceedings{gu2026nanoknow,
+  title={Projecting QA Datasets to FineWeb},
+  author={Gu, Lingwei and Jedidi, Nour and Lin, Jimmy},
+  booktitle={Proceedings of SIGIR},
+  year={2026}
+}
+```
+
+## License
+
+Apache 2.0

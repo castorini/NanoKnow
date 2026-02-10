@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.backends._legacy:_Backend"
+
+[project]
+name = "nanoknow"
+version = "0.1.0"
+description = "Project QA benchmarks onto LLM pre-training corpora"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+authors = [
+    {name = "Lingwei Gu", email = "lingwei.gu@uwaterloo.ca"},
+    {name = "Nour Jedidi", email = "njedidi@uwaterloo.ca"},
+    {name = "Jimmy Lin", email = "jimmylin@uwaterloo.ca"},
+]
+
+dependencies = [
+    "datasets>=3.0.0",
+    "tqdm>=4.65.0",
+    "numpy>=1.24.0",
+]
+
+[project.optional-dependencies]
+retrieval = ["pyserini>=0.25.0"]
+evaluation = ["torch>=2.0.0", "transformers>=4.40.0", "duckdb>=1.0.0"]
+analysis = ["pandas>=2.0.0", "matplotlib>=3.7.0"]
+all = ["nanoknow[retrieval,evaluation,analysis]"]
