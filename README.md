@@ -19,7 +19,7 @@ The pipeline has three stages:
 
 ## Pre-built Qrels
 
-We provide pre-built qrels for [nanochat](https://github.com/karpathy/nanochat) models trained on [FineWeb-Edu](https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu) (100B tokens):
+We provide pre-built qrels for [nanochat](https://github.com/karpathy/nanochat) models trained on [karpathy/fineweb-edu-100b-shuffle](https://huggingface.co/datasets/karpathy/fineweb-edu-100b-shuffle):
 
 | Dataset | Questions | In-Corpus | Out-of-Corpus |
 |---------|-----------|-----------|---------------|
@@ -90,15 +90,19 @@ python scripts/analyze_frequency.py \
     --output output/frequency_analysis.json
 ```
 
-## Building the FineWeb-Edu Index
+## FineWeb-Edu Lucene Index
 
-To build a Lucene index over FineWeb-Edu using [Anserini](https://github.com/castorini/anserini):
+We release a pre-built Lucene index over [karpathy/fineweb-edu-100b-shuffle](https://huggingface.co/datasets/karpathy/fineweb-edu-100b-shuffle) (326 GB):
+
+**Download**: [LingweiGu/NanoKnow-Fineweb-Edu-Index](https://huggingface.co/datasets/LingweiGu/NanoKnow-Fineweb-Edu-Index)
 
 ```bash
-# Download FineWeb-Edu
-# https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu
+huggingface-cli download LingweiGu/NanoKnow-Fineweb-Edu-Index --repo-type dataset --local-dir ./fineweb-edu-index
+```
 
-# Build index with Anserini (~341 GB)
+To build the index yourself using [Anserini](https://github.com/castorini/anserini):
+
+```bash
 python -m pyserini.index.lucene \
     --collection JsonCollection \
     --input /path/to/fineweb-edu-jsonl/ \
