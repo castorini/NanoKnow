@@ -80,6 +80,42 @@ python scripts/evaluate.py \
     --output output/eval_results.pkl
 ```
 
+To evaluate the model predictions, pass ```output/eval_results.pkl``` to the following script:
+
+```bash
+python scripts/evaluate_model_predictions.py \
+    --input_file output/eval_results.pkl \
+```
+
+This will produce a ```eval_results_scored.pkl``` file which produces a binary evaluation for each of
+the model's predictions for a given condition (e.g., closed-book). To get an overall accuracy score, 
+simply take the sum of the true values across all predictions, for example as follows:
+```
+def clean_json_output(text):
+    if "</think>" in text:
+        text = text.split("</think>")[-1]
+
+    # 2. Strip markdown code blocks (```json ... ```) and whitespace
+    text = re.sub(r"^```(json)?|```$", "", text.strip(), flags=re.MULTILINE)
+
+    # 3. Return the parsed dict directly
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError:
+        return {"correct": False, "explanation": "JSON_PARSE_ERROR"}
+
+# To provide an example, we set condition_name to be "in_corpus_no_context"
+# Please replace with the condition you are interested in evaluating
+condition_name = "in_corpus_no_context"
+predictions = data[condition_name]["results"]
+n = len(predictions)
+em_acc = sum(d['exact_match_score'] for d in predictions) / n
+judge_acc = sum(
+        clean_json_output(d['llm_judge_score'])['correct']
+        for d in predictions
+    ) / n
+```
+
 ### Analyze frequency effects
 
 ```bash
