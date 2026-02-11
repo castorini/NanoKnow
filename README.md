@@ -84,7 +84,7 @@ To evaluate the model predictions, pass ```output/eval_results.pkl``` to the fol
 
 ```bash
 python scripts/evaluate_model_predictions.py \
-    --input_file output/eval_results.pkl \
+    --input_file output/eval_results.pkl 
 ```
 
 This will produce a ```eval_results_scored.pkl``` file which produces a binary evaluation for each of
