@@ -139,12 +139,12 @@ huggingface-cli download LingweiGu/NanoKnow-Fineweb-Edu-Index --repo-type datase
 To build the index yourself using [Anserini](https://github.com/castorini/anserini):
 
 ```bash
-python -m pyserini.index.lucene \
-    --collection JsonCollection \
-    --input /path/to/fineweb-edu-jsonl/ \
-    --index /path/to/output-index/ \
-    --generator DefaultLuceneDocumentGenerator \
-    --threads 16
+bin/run.sh io.anserini.index.IndexCollection \
+  -collection FinewebCollection \
+  -input /path/to/corpus \
+  -index /output/directory \
+  -generator DefaultLuceneDocumentGenerator \
+  -threads 16
 ```
 
 ## Repository Structure
