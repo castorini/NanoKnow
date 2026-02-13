@@ -1,11 +1,11 @@
 """
-Evaluate nanochat checkpoints on in-corpus / out-of-corpus questions.
+Evaluate nanochat checkpoints on supported / unsupported questions.
 
 Supports four conditions:
   1. Closed-book (no context)
   2. w/ FineWeb context (from pre-training data)
   3. w/ Original context (SQuAD only)
-  4. Out-of-corpus + Original context (SQuAD only)
+  4. Unsupported + Original context (SQuAD only)
 """
 
 import re

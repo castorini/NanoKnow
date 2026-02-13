@@ -8,7 +8,7 @@ how many FineWeb documents contain their answer, and reports accuracy per bucket
 Usage:
     python scripts/analyze_frequency.py \
         --eval_dir output/evals/ \
-        --qrel_file qrels/squad_in_corpus.txt \
+        --qrel_file qrels/squad_supported.txt \
         --dataset squad \
         --output output/frequency_analysis.json
 """

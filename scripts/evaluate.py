@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """
-Evaluate nanochat checkpoints on in-corpus and out-of-corpus questions.
+Evaluate nanochat checkpoints on supported and unsupported questions.
 
 Runs up to four experimental conditions:
-  1. In-corpus, closed-book (parametric knowledge only)
-  2. In-corpus, w/ FineWeb context (RAG with pre-training data)
-  3. In-corpus, w/ original context (SQuAD only)
-  4. Out-of-corpus, w/ original context (SQuAD only)
+  1. Supported, closed-book (parametric knowledge only)
+  2. Supported, w/ FineWeb context (RAG with pre-training data)
+  3. Supported, w/ original context (SQuAD only)
+  4. Unsupported, w/ original context (SQuAD only)
 
 Usage:
     python scripts/evaluate.py \
@@ -98,26 +98,26 @@ def main():
     with open(args.projection, "rb") as f:
         data = pickle.load(f)
 
-    in_corpus = [r for r in data["results"] if r.get("verified")]
-    out_corpus = [r for r in data["results"] if not r.get("verified")]
-    print(f"In-corpus: {len(in_corpus)}, Out-of-corpus: {len(out_corpus)}")
+    supported = [r for r in data["results"] if r.get("verified")]
+    unsupported = [r for r in data["results"] if not r.get("verified")]
+    print(f"Supported: {len(supported)}, Unsupported: {len(unsupported)}")
 
     if args.limit:
-        in_corpus = in_corpus[: args.limit]
-        out_corpus = out_corpus[: args.limit]
+        supported = supported[: args.limit]
+        unsupported = unsupported[: args.limit]
 
     evaluator = NanoChatEvaluator(args.model)
     all_results = {}
 
     # Condition 1: Closed-book
-    print("\n--- In-corpus, Closed-Book ---")
-    all_results["in_corpus_no_context"] = run_condition(
-        evaluator, in_corpus, "in_corpus_no_context"
+    print("\n--- Supported, Closed-Book ---")
+    all_results["supported_no_context"] = run_condition(
+        evaluator, supported, "supported_no_context"
     )
 
     # Condition 2: FineWeb context
     if args.fineweb_path:
-        print("\n--- In-corpus, w/ FineWeb Context ---")
+        print("\n--- Supported, w/ FineWeb Context ---")
 
         def fineweb_ctx(q):
             doc_id = q.get("doc_id")
@@ -126,8 +126,8 @@ def main():
                 return get_fineweb_context(doc_id, answer, args.fineweb_path)
             return None
 
-        all_results["in_corpus_fineweb_context"] = run_condition(
-            evaluator, in_corpus, "in_corpus_fineweb_context", fineweb_ctx
+        all_results["supported_fineweb_context"] = run_condition(
+            evaluator, supported, "supported_fineweb_context", fineweb_ctx
         )
 
     # Condition 3 & 4: Original context (SQuAD only)
@@ -138,14 +138,14 @@ def main():
         def orig_ctx(q):
             return squad_contexts.get(q["original_question"])
 
-        print("\n--- In-corpus, w/ Original Context ---")
-        all_results["in_corpus_original_context"] = run_condition(
-            evaluator, in_corpus, "in_corpus_original_context", orig_ctx
+        print("\n--- Supported, w/ Original Context ---")
+        all_results["supported_original_context"] = run_condition(
+            evaluator, supported, "supported_original_context", orig_ctx
         )
 
-        print("\n--- Out-of-corpus, w/ Original Context ---")
-        all_results["out_corpus_original_context"] = run_condition(
-            evaluator, out_corpus, "out_corpus_original_context", orig_ctx
+        print("\n--- Unsupported, w/ Original Context ---")
+        all_results["unsupported_original_context"] = run_condition(
+            evaluator, unsupported, "unsupported_original_context", orig_ctx
         )
 
     # Save

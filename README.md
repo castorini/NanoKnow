@@ -8,8 +8,8 @@ NanoKnow identifies which benchmark questions have answers in a model's training
 
 Given a QA benchmark and a pre-training corpus, NanoKnow produces **relevance judgments (qrels)** that partition questions into:
 
-- **In-corpus**: The answer exists in the training data (the model could have memorized it).
-- **Out-of-corpus**: The answer does not appear in the training data.
+- **Supported**: The answer exists in the training data (the model could have memorized it).
+- **Unsupported**: The answer does not appear in the training data.
 
 The pipeline has three stages:
 
@@ -21,7 +21,7 @@ The pipeline has three stages:
 
 We provide pre-built qrels for [nanochat](https://github.com/karpathy/nanochat) models trained on [karpathy/fineweb-edu-100b-shuffle](https://huggingface.co/datasets/karpathy/fineweb-edu-100b-shuffle):
 
-| Dataset | Questions | In-Corpus | Out-of-Corpus |
+| Dataset | Questions | Supported | Unsupported |
 |---------|-----------|-----------|---------------|
 | SQuAD   | 10,570    | 7,490 (71%) | 3,080 (29%) |
 | NQ-Open | 3,610     | 2,389 (66%) | 1,221 (34%) |
@@ -104,9 +104,9 @@ def clean_json_output(text):
     except json.JSONDecodeError:
         return {"correct": False, "explanation": "JSON_PARSE_ERROR"}
 
-# To provide an example, we set condition_name to be "in_corpus_no_context"
+# To provide an example, we set condition_name to be "supported_no_context"
 # Please replace with the condition you are interested in evaluating
-condition_name = "in_corpus_no_context"
+condition_name = "supported_no_context"
 predictions = data[condition_name]["results"]
 n = len(predictions)
 em_acc = sum(d['exact_match_score'] for d in predictions) / n
@@ -121,7 +121,7 @@ judge_acc = sum(
 ```bash
 python scripts/analyze_frequency.py \
     --eval_dir output/ \
-    --qrel_file qrels/squad_in_corpus.txt \
+    --qrel_file qrels/squad_supported.txt \
     --dataset squad \
     --output output/frequency_analysis.json
 ```
@@ -160,10 +160,10 @@ NanoKnow/
 │   ├── evaluate.py            # Evaluate nanochat checkpoints
 │   └── analyze_frequency.py   # Frequency analysis
 ├── qrels/                     # Pre-built relevance judgments
-│   ├── squad_in_corpus.txt    # SQuAD in-corpus (7,490 questions)
-│   ├── squad_out_corpus.txt   # SQuAD out-of-corpus (3,080 questions)
-│   ├── nq_in_corpus.txt       # NQ in-corpus (2,389 questions)
-│   └── nq_out_corpus.txt      # NQ out-of-corpus (1,221 questions)
+│   ├── squad_supported.txt    # SQuAD supported (7,490 questions)
+│   ├── squad_unsupported.txt  # SQuAD unsupported (3,080 questions)
+│   ├── nq_supported.txt       # NQ supported (2,389 questions)
+│   └── nq_unsupported.txt      # NQ unsupported (1,221 questions)
 ├── requirements.txt
 ├── LICENSE
 └── README.md
