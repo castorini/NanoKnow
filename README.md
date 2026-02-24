@@ -182,9 +182,9 @@ We evaluated eight checkpoints across three model scales:
 ## Citation
 
 ```bibtex
-@article{gu2026nanoknowknowlanguagemodel,
+@article{gu2026nanoknow,
   title={NanoKnow: How to Know What Your Language Model Knows},
-  author={Lingwei Gu and Nour Jedidi and Jimmy Lin},
+  author={Gu, Lingwei and Jedidi, Nour and Lin, Jimmy},
   journal={arXiv preprint arXiv:2602.20122},
   year={2026}
 }
