@@ -182,10 +182,10 @@ We evaluated eight checkpoints across three model scales:
 ## Citation
 
 ```bibtex
-@inproceedings{gu2026nanoknow,
-  title={Projecting QA Datasets to FineWeb},
-  author={Gu, Lingwei and Jedidi, Nour and Lin, Jimmy},
-  booktitle={Proceedings of SIGIR},
+@article{gu2026nanoknowknowlanguagemodel,
+  title={NanoKnow: How to Know What Your Language Model Knows},
+  author={Lingwei Gu and Nour Jedidi and Jimmy Lin},
+  journal={arXiv preprint arXiv:2602.20122},
   year={2026}
 }
 ```
