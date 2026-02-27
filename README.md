@@ -4,6 +4,8 @@
 
 NanoKnow identifies which benchmark questions have answers in a model's training data, enabling controlled studies of parametric knowledge vs. retrieval-augmented generation (RAG).
 
+Arxiv: https://arxiv.org/abs/2602.20122
+
 ## Overview
 
 Given a QA benchmark and a pre-training corpus, NanoKnow produces **relevance judgments (qrels)** that partition questions into:
