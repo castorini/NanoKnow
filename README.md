@@ -178,8 +178,8 @@ We evaluated eight checkpoints across three model scales:
 | Scale | Checkpoints |
 |-------|------------|
 | d20 (~561M params) | `sampathchanda/nanochat-d20`, `shu127/nanochat-d20`, `pankajmathur/nanochat-d20` |
-| d32 (~1B params) | `karpathy/nanochat-d32`, `Antigma/nanochat-d32` |
-| d34-sft (~1.4B params) | `renatocastro33/nanochat-d34-sft`, `victoremnm/nanochat-d34-sft`, `pankajmathur/nanochat-d34-sft-hf` |
+| d32 (~1.9B params) | `karpathy/nanochat-d32`, `Antigma/nanochat-d32` |
+| d34-sft (~2.2B params) | `renatocastro33/nanochat-d34-sft`, `victoremnm/nanochat-d34-sft`, `pankajmathur/nanochat-d34-sft-hf` |
 
 ## Citation
 
