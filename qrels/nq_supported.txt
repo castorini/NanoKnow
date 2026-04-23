@@ -1,10 +1,10 @@
-# SUPPORTED QRELS for NQ evaluation set on FineWeb
-# Generated: 2026-02-07T04:19:25.772966
+# SUPPORTED QRELS for NQ evaluation set on FineWeb、
+# Generated: 2026-04-21T16:33:22.851561
 # Model: Qwen/Qwen3-8B
 # Top-K: 100
 # Total questions: 3610
-# Questions with verified: 2391
-# Total verified docs: 56857
+# Questions with verified: 2389
+# Total verified docs: 56958
 #
 # Format: qid, question, official_answer, doc_id, answer_offset
 #====================================================================
@@ -457,6 +457,7 @@
 41, i was a great islamic scholar and mathematician who died in 1131 ce, Omar Khayyam, shard_01641_8115, 757
 41, i was a great islamic scholar and mathematician who died in 1131 ce, Omar Khayyam, shard_00374_502, 1769
 41, i was a great islamic scholar and mathematician who died in 1131 ce, Omar Khayyam, shard_00910_43838, 165
+43, last episode of what happens to my family, 53, shard_01569_37007, 15703
 44, when is the last time the vikings were in the nfc championship, 1976, shard_01455_19224, 32210
 44, when is the last time the vikings were in the nfc championship, 1976, shard_01185_49956, 64945
 44, when is the last time the vikings were in the nfc championship, 1976, shard_00999_1630, 29147
@@ -1269,7 +1270,6 @@
 89, who is playing the halftime show at super bowl 2016, Beyoncé, shard_01378_44462, 5002
 89, who is playing the halftime show at super bowl 2016, Beyoncé, shard_01592_9333, 25797
 89, who is playing the halftime show at super bowl 2016, Beyoncé, shard_01439_40425, 4847
-90, jonny cash one piece at a time car, Cadillac, shard_00450_18800, 3725
 91, what is the minimum wage in france per hour, 11.16, shard_01619_8918, 1265
 91, what is the minimum wage in france per hour, 11.16, shard_01570_15478, 4124
 91, what is the minimum wage in france per hour, 11.16, shard_01448_19603, 4829
@@ -1994,6 +1994,10 @@
 121, when do you celebrate birthday if born on feb 29, February 29, shard_00990_13507, 1697
 121, when do you celebrate birthday if born on feb 29, February 29, shard_00874_10687, 70
 121, when do you celebrate birthday if born on feb 29, February 29, shard_01250_49656, 444
+124, what year does the quiet man take place, the 1920s, shard_00412_42817, -1
+124, what year does the quiet man take place, the 1920s, shard_00819_17346, -1
+124, what year does the quiet man take place, the 1920s, shard_00895_29939, -1
+125, how many seasons of rules of engagement is there, 7, shard_01756_27929, 31154
 126, who plays alec ramsay in the black stallion, Kelly Reno, shard_01619_50471, 4508
 126, who plays alec ramsay in the black stallion, Kelly Reno, shard_00152_12157, 1457
 126, who plays alec ramsay in the black stallion, Kelly Reno, shard_00104_11827, 27127
@@ -2189,6 +2193,7 @@
 144, who won the champions league final in 2016, Real Madrid, shard_01278_8459, 10916
 144, who won the champions league final in 2016, Real Madrid, shard_00852_5131, 13274
 144, who won the champions league final in 2016, Real Madrid, shard_00571_31767, 17436
+145, who is the real killer in basic instinct 2, Catherine Tramell, shard_01668_15736, 8182
 146, who does the voice of mickey mouse on mickey mouse clubhouse, Bret Iwan, shard_00016_50168, 5513
 146, who does the voice of mickey mouse on mickey mouse clubhouse, Bret Iwan, shard_00058_16991, 5513
 146, who does the voice of mickey mouse on mickey mouse clubhouse, Bret Iwan, shard_01084_51796, 5513
@@ -2686,7 +2691,6 @@
 174, when did the movie napoleon dynamite come out, June 11  2004, shard_01731_35591, 10130
 174, when did the movie napoleon dynamite come out, June 11  2004, shard_01739_23288, 10130
 174, when did the movie napoleon dynamite come out, June 11  2004, shard_01785_17429, 10130
-175, who starred in an officer and a gentleman, Richard Gere, shard_00056_7765, 3208
 177, name two fibres which are made of proteins, feathers, shard_00872_32696, 819
 177, name two fibres which are made of proteins, feathers, shard_00144_34383, 1602
 177, name two fibres which are made of proteins, feathers, shard_01426_18793, 3014
@@ -4372,6 +4376,10 @@
 269, number 4 in roman numerals on clock faces, IV, shard_00520_37046, 412
 269, number 4 in roman numerals on clock faces, IV, shard_00512_24057, 52
 269, number 4 in roman numerals on clock faces, IV, shard_00063_9229, 735
+270, when was the last year the eagles went to the superbowl, following the 2017 season, shard_00303_51045, -1
+270, when was the last year the eagles went to the superbowl, following the 2017 season, shard_00234_24077, -1
+270, when was the last year the eagles went to the superbowl, following the 2017 season, shard_01055_34628, -1
+270, when was the last year the eagles went to the superbowl, following the 2017 season, shard_01541_51954, -1
 271, who is the team that beat the eagles this season, Dallas Cowboys, shard_01615_273, 8910
 271, who is the team that beat the eagles this season, Dallas Cowboys, shard_00115_47559, 6309
 271, who is the team that beat the eagles this season, Dallas Cowboys, shard_01535_32074, 6309
@@ -4980,7 +4988,6 @@
 301, who had created the second bank of the united states, President James Madison, shard_00392_19328, 5753
 301, who had created the second bank of the united states, President James Madison, shard_01027_50364, 5753
 301, who had created the second bank of the united states, President James Madison, shard_00319_26091, 6254
-302, where is the highest level of fluoride stored in the teeth, surface of the enamel, shard_00674_25995, 3182
 305, who made delhi as capital for the first time, the Pandavas, shard_00446_26361, 1718
 305, who made delhi as capital for the first time, the Pandavas, shard_01794_23182, 1718
 305, who made delhi as capital for the first time, the Pandavas, shard_01772_50491, 4213
@@ -5318,6 +5325,29 @@
 324, who is given credit for the gnu initiative, Richard Stallman, shard_00279_9377, 2582
 324, who is given credit for the gnu initiative, Richard Stallman, shard_01578_24519, 2582
 324, who is given credit for the gnu initiative, Richard Stallman, shard_00198_34898, 21175
+326, when did the nba create the 3 point line, the 1979–80 season, shard_01198_39752, -1
+326, when did the nba create the 3 point line, the 1979–80 season, shard_01477_11184, -1
+326, when did the nba create the 3 point line, the 1979–80 season, shard_00005_46555, -1
+326, when did the nba create the 3 point line, the 1979–80 season, shard_00661_6043, -1
+326, when did the nba create the 3 point line, the 1979–80 season, shard_01302_44554, -1
+326, when did the nba create the 3 point line, the 1979–80 season, shard_01493_13374, -1
+326, when did the nba create the 3 point line, the 1979–80 season, shard_01761_38164, -1
+326, when did the nba create the 3 point line, the 1979–80 season, shard_00745_13735, -1
+326, when did the nba create the 3 point line, the 1979–80 season, shard_01813_30719, -1
+326, when did the nba create the 3 point line, the 1979–80 season, shard_01646_17066, -1
+326, when did the nba create the 3 point line, the 1979–80 season, shard_00788_23399, -1
+326, when did the nba create the 3 point line, the 1979–80 season, shard_00124_19597, -1
+326, when did the nba create the 3 point line, the 1979–80 season, shard_00320_31898, -1
+326, when did the nba create the 3 point line, the 1979–80 season, shard_00855_11983, -1
+326, when did the nba create the 3 point line, the 1979–80 season, shard_01701_14272, -1
+326, when did the nba create the 3 point line, the 1979–80 season, shard_00842_32056, -1
+326, when did the nba create the 3 point line, the 1979–80 season, shard_00962_46322, -1
+326, when did the nba create the 3 point line, the 1979–80 season, shard_01231_36089, -1
+326, when did the nba create the 3 point line, the 1979–80 season, shard_01793_41502, 36625
+326, when did the nba create the 3 point line, the 1979–80 season, shard_00269_12229, -1
+326, when did the nba create the 3 point line, the 1979–80 season, shard_00564_1599, -1
+326, when did the nba create the 3 point line, the 1979–80 season, shard_00948_20738, -1
+326, when did the nba create the 3 point line, the 1979–80 season, shard_01793_45843, -1
 328, when was the canadian pacific railway started and finished, between 1881 and 1885, shard_01092_21592, 4621
 328, when was the canadian pacific railway started and finished, between 1881 and 1885, shard_00196_32052, 8060
 328, when was the canadian pacific railway started and finished, between 1881 and 1885, shard_00271_31140, 7921
@@ -6985,7 +7015,6 @@
 440, when was the last time the jets won a playoff game, 2010, shard_00902_37709, 36206
 440, when was the last time the jets won a playoff game, 2010, shard_00788_3842, 10353
 440, when was the last time the jets won a playoff game, 2010, shard_00797_25944, 14279
-442, is it marley and me or marley and i, Marley & Me, shard_00169_14986, 71
 443, when did vat change from 17.5 to 20, 4 January 2011, shard_01595_21598, 574
 443, when did vat change from 17.5 to 20, 4 January 2011, shard_00218_2852, 574
 443, when did vat change from 17.5 to 20, 4 January 2011, shard_00483_25743, 574
@@ -7394,6 +7423,16 @@
 460, where was the salvation army's christmas collection kettle first introduced, San Francisco, shard_00941_5454, 6215
 460, where was the salvation army's christmas collection kettle first introduced, San Francisco, shard_00255_24793, 4828
 461, who is jojo in horton hears a who, Jesse McCartney, shard_01206_41645, 3812
+462, what song is played while raising the american flag, Reveille, shard_00415_1541, -1
+462, what song is played while raising the american flag, Reveille, shard_00641_4196, -1
+462, what song is played while raising the american flag, Reveille, shard_00266_312, 2804
+462, what song is played while raising the american flag, Reveille, shard_00559_8308, 2804
+462, what song is played while raising the american flag, Reveille, shard_00883_35158, 2804
+462, what song is played while raising the american flag, Reveille, shard_01577_7253, 2802
+462, what song is played while raising the american flag, Reveille, shard_01341_24095, -1
+462, what song is played while raising the american flag, Reveille, shard_00890_8467, -1
+462, what song is played while raising the american flag, Reveille, shard_01727_9791, -1
+462, what song is played while raising the american flag, Reveille, shard_01746_20326, -1
 464, how many countries does cadbury sell its products, more than 50 countries worldwide, shard_00127_34372, 168
 464, how many countries does cadbury sell its products, more than 50 countries worldwide, shard_00208_11681, 168
 464, how many countries does cadbury sell its products, more than 50 countries worldwide, shard_00494_10863, 168
@@ -8420,6 +8459,16 @@
 529, who overthrew the mongols and established the ming dynasty, Zhu Yuanzhang, shard_01488_31198, 589
 529, who overthrew the mongols and established the ming dynasty, Zhu Yuanzhang, shard_00140_5384, 3150
 529, who overthrew the mongols and established the ming dynasty, Zhu Yuanzhang, shard_00684_4021, 3150
+531, when did tim hortons open in the usa, 1981, shard_00364_40334, 6672
+531, when did tim hortons open in the usa, 1981, shard_00183_19454, -1
+531, when did tim hortons open in the usa, 1981, shard_00553_11182, -1
+531, when did tim hortons open in the usa, 1981, shard_00581_45817, -1
+531, when did tim hortons open in the usa, 1981, shard_00668_47841, -1
+531, when did tim hortons open in the usa, 1981, shard_01390_22071, -1
+531, when did tim hortons open in the usa, 1981, shard_00875_22708, 3406
+531, when did tim hortons open in the usa, 1981, shard_01282_48876, 3406
+531, when did tim hortons open in the usa, 1981, shard_01538_8260, -1
+531, when did tim hortons open in the usa, 1981, shard_01259_17934, -1
 532, when was the reaper invented by cyrus mccormick, 1837, shard_00726_21506, 1723
 532, when was the reaper invented by cyrus mccormick, 1837, shard_01031_40188, 4169
 532, when was the reaper invented by cyrus mccormick, 1837, shard_00717_41035, 1877
@@ -8897,8 +8946,6 @@
 561, where was because i could not stop for death published, 1890, shard_00797_38910, 1383
 561, where was because i could not stop for death published, 1890, shard_01638_1214, 5023
 562, oppo is sponsor of which country's national cricket team, the Indian national cricket team, shard_00817_3796, 0
-563, when did fender start making amps in mexico, 1996, shard_00520_51715, 10547
-563, when did fender start making amps in mexico, 1996, shard_00979_35716, 9952
 564, where will be the next olympics be held, Tokyo, shard_01662_42132, 1660
 564, where will be the next olympics be held, Tokyo, shard_01068_25281, 31114
 564, where will be the next olympics be held, Tokyo, shard_01190_8234, 72
@@ -9746,6 +9793,8 @@
 612, how long have we been celebrating pi day, 1988, shard_00035_16216, 3004
 612, how long have we been celebrating pi day, 1988, shard_01457_45090, 3004
 612, how long have we been celebrating pi day, 1988, shard_01591_18148, 3004
+613, who is the number one ranked golfer in the world right now, Dustin Johnson, shard_00641_52944, -1
+613, who is the number one ranked golfer in the world right now, Dustin Johnson, shard_00953_42567, -1
 615, which organelle is the site of atp production and storage, mitochondrion, shard_00297_34059, 22422
 615, which organelle is the site of atp production and storage, mitochondrion, shard_01349_20516, 3802
 615, which organelle is the site of atp production and storage, mitochondrion, shard_00420_14126, 4058
@@ -10475,6 +10524,7 @@
 657, what is alpha centauri's approximate distance from earth, 4.37 light-years, shard_00383_33262, 193
 657, what is alpha centauri's approximate distance from earth, 4.37 light-years, shard_01256_6234, 2729
 657, what is alpha centauri's approximate distance from earth, 4.37 light-years, shard_01588_6404, 75
+659, when will the 2018 oscar nominations be announced, January 23, 2018, shard_00838_50515, 44052
 660, who is the father of lucius in gladiator, Lucius Verus, shard_01393_1842, 10421
 660, who is the father of lucius in gladiator, Lucius Verus, shard_00123_38453, 8168
 660, who is the father of lucius in gladiator, Lucius Verus, shard_01169_5109, 7937
@@ -11507,7 +11557,6 @@
 716, pace maker is associated with which body organ, heart, shard_00351_14616, 470
 716, pace maker is associated with which body organ, heart, shard_00361_17862, 0
 716, pace maker is associated with which body organ, heart, shard_00484_15212, 0
-717, what is the zebras name in peppa pig, Zuzu, shard_00483_41504, 1639
 719, who plays genie in ferris bueller's day off, Jennifer Grey, shard_00394_13268, 4551
 720, who sang national anthem at the super bowl, Pink, shard_00541_29469, 3992
 720, who sang national anthem at the super bowl, Pink, shard_01543_439, 123
@@ -11893,7 +11942,6 @@
 735, when was the last time minnesota vikings was in the super bowl, 1969, shard_00286_20392, 2712
 735, when was the last time minnesota vikings was in the super bowl, 1969, shard_00917_3243, 3114
 737, who sang the songs in the movie beyond the sea, Kevin Spacey, shard_00927_21112, 3929
-739, last world series that didn't go 7 games, 2015, shard_00673_37338, 45971
 741, when was the first orca put in captivity, in the 1960s, shard_01243_34854, 7488
 741, when was the first orca put in captivity, in the 1960s, shard_00453_20941, 8024
 741, when was the first orca put in captivity, in the 1960s, shard_00697_40464, 174
@@ -12176,7 +12224,6 @@
 758, when is the running of the bulls held in spain, 6–14 July, shard_00428_11969, 2759
 758, when is the running of the bulls held in spain, 6–14 July, shard_00743_23453, 2635
 758, when is the running of the bulls held in spain, 6–14 July, shard_00678_29066, 844
-759, who sang how long has this been going on song, Ace, shard_01729_4483, 526
 760, what was the lowest barometric pressure for hurricane irma, 914 mbar (hPa), shard_01110_24489, 33952
 761, when did david akers kick the 63 yard field goal, September 9  2012, shard_00265_42150, 14796
 761, when did david akers kick the 63 yard field goal, September 9  2012, shard_00044_31787, 12854
@@ -12336,6 +12383,7 @@
 768, when did the battle of badr take place, 13 March 624, shard_00644_10473, 483
 769, which abbott and costello movie has who on first, The Naughty Nineties, shard_00706_18901, 109559
 769, which abbott and costello movie has who on first, The Naughty Nineties, shard_00138_26000, 5022
+770, how many episodes in series 7 of game of thrones are there, 7, shard_01050_48619, 615
 772, fast and furious 7 red car abu dhabi, The Lykan Hypersport, shard_00650_29967, 5338
 773, islamic term for the community of the faithful, ummat al-Islamiyah, shard_01062_50389, 6973
 773, islamic term for the community of the faithful, ummat al-Islamiyah, shard_00398_30843, 6973
@@ -12632,11 +12680,15 @@
 785, who was elected senator of illinois in 1858, Stephen A. Douglas, shard_00289_24425, 227
 785, who was elected senator of illinois in 1858, Stephen A. Douglas, shard_00746_49167, 227
 785, who was elected senator of illinois in 1858, Stephen A. Douglas, shard_01432_50572, 227
+786, what is the number of cities in texas, 961, shard_00658_5271, -1
+786, what is the number of cities in texas, 961, shard_01139_8091, 20169
+786, what is the number of cities in texas, 961, shard_01788_30608, -1
 787, where was the original planet of the apes filmed at, Utah, shard_01587_5334, 3581
 787, where was the original planet of the apes filmed at, Utah, shard_00256_10420, 110
 787, where was the original planet of the apes filmed at, Utah, shard_01303_36220, 110
 787, where was the original planet of the apes filmed at, Utah, shard_00730_27988, 10222
 787, where was the original planet of the apes filmed at, Utah, shard_00967_53198, 2945
+788, who sings find out who your friends are with tracy lawrence, Kenny Chesney, shard_01267_46214, 4547
 789, what is the 180 degree line of longitude called, 180th meridian or antimeridian, shard_00564_17447, 4690
 789, what is the 180 degree line of longitude called, 180th meridian or antimeridian, shard_01489_3497, 5762
 789, what is the 180 degree line of longitude called, 180th meridian or antimeridian, shard_00365_5596, 4728
@@ -12745,7 +12797,23 @@
 793, when did the first movie of harry potter come out, 16 November 2001, shard_01250_45714, 3429
 793, when did the first movie of harry potter come out, 16 November 2001, shard_01822_48415, 3429
 793, when did the first movie of harry potter come out, 16 November 2001, shard_00966_9686, 265
-795, who won the oscar over wolf of wall street, Terence Winter, shard_01485_7520, 11296
+796, total number of mna in pakistan national assembly, 332 members, shard_00510_36606, -1
+796, total number of mna in pakistan national assembly, 332 members, shard_00633_6556, -1
+796, total number of mna in pakistan national assembly, 332 members, shard_00053_3491, -1
+796, total number of mna in pakistan national assembly, 332 members, shard_00721_26440, -1
+796, total number of mna in pakistan national assembly, 332 members, shard_00374_11680, -1
+796, total number of mna in pakistan national assembly, 332 members, shard_01817_10029, -1
+796, total number of mna in pakistan national assembly, 332 members, shard_00177_24311, -1
+796, total number of mna in pakistan national assembly, 332 members, shard_00470_36461, -1
+796, total number of mna in pakistan national assembly, 332 members, shard_01173_8800, -1
+796, total number of mna in pakistan national assembly, 332 members, shard_01357_6405, -1
+796, total number of mna in pakistan national assembly, 332 members, shard_00422_50200, -1
+796, total number of mna in pakistan national assembly, 332 members, shard_00599_35780, -1
+796, total number of mna in pakistan national assembly, 332 members, shard_00951_46734, -1
+796, total number of mna in pakistan national assembly, 332 members, shard_00521_17161, 16197
+796, total number of mna in pakistan national assembly, 332 members, shard_00820_33916, 16197
+796, total number of mna in pakistan national assembly, 332 members, shard_01078_24433, 16197
+796, total number of mna in pakistan national assembly, 332 members, shard_01057_46662, -1
 798, what type of joint connects the incus with the malleus, synovial, shard_01822_22001, 571
 798, what type of joint connects the incus with the malleus, synovial, shard_00691_18599, 7494
 798, what type of joint connects the incus with the malleus, synovial, shard_00044_35553, 804
@@ -13432,6 +13500,7 @@
 836, where was the outlaw of josey wales filmed, Kanab  Utah, shard_00051_15615, 234
 836, where was the outlaw of josey wales filmed, Kanab  Utah, shard_01181_26098, 234
 836, where was the outlaw of josey wales filmed, Kanab  Utah, shard_01677_39901, 385
+837, when's the last time philly won the superbowl, 2017, shard_01196_21064, 33626
 838, an open-source clone of unix created in the early 1990s, GNU/Linux, shard_01041_39105, 292
 838, an open-source clone of unix created in the early 1990s, GNU/Linux, shard_01339_7507, 292
 838, an open-source clone of unix created in the early 1990s, GNU/Linux, shard_01450_21602, 292
@@ -13716,6 +13785,7 @@
 859, a concave mirror can form a real image which is a copy of an object that forms, inverted, shard_00156_9223, 1024
 859, a concave mirror can form a real image which is a copy of an object that forms, inverted, shard_00418_32090, 675
 859, a concave mirror can form a real image which is a copy of an object that forms, inverted, shard_00933_39083, 5889
+860, who had the best strike rate among batsmen who scored over 200 runs in the world cup, Chris Gayle, shard_01821_24875, 4645
 861, when did the first battle of ypres end, 22 November 1914, shard_00634_23191, 88
 861, when did the first battle of ypres end, 22 November 1914, shard_00751_10737, 88
 861, when did the first battle of ypres end, 22 November 1914, shard_01008_37937, 88
@@ -13760,7 +13830,6 @@
 863, who were farmers who kept a small portion of their crops & gave the rest to the landowners, Sharecropping, shard_00668_45172, 583
 863, who were farmers who kept a small portion of their crops & gave the rest to the landowners, Sharecropping, shard_01636_36966, 583
 863, who were farmers who kept a small portion of their crops & gave the rest to the landowners, Sharecropping, shard_00961_39996, 3962
-864, who has won the most olympic medals in curling, Torger Nergård, shard_00575_18804, 7670
 865, what is one of the main goal of the democratic party, social and economic equality, shard_00929_15286, 584
 867, where is the world's largest thermometer located, Baker  California  USA, shard_00673_33560, 128
 867, where is the world's largest thermometer located, Baker  California  USA, shard_01127_2721, 4851
@@ -15040,8 +15109,6 @@
 945, who votes in the baseball hall of fame, or the Veterans Committee, shard_01500_28444, 267
 945, who votes in the baseball hall of fame, or the Veterans Committee, shard_00516_53074, 233
 945, who votes in the baseball hall of fame, or the Veterans Committee, shard_01658_37753, 6739
-947, when did hootie and the blowfish come out, 2003, shard_00963_16539, 2399
-947, when did hootie and the blowfish come out, 2003, shard_00673_34547, 69
 948, who were the the continent of the americas named after logically, Amerigo Vespucci, shard_01225_44619, 11217
 948, who were the the continent of the americas named after logically, Amerigo Vespucci, shard_00032_25943, 1006
 948, who were the the continent of the americas named after logically, Amerigo Vespucci, shard_00952_29202, 1006
@@ -17817,7 +17884,6 @@
 1101, when did canada sign the un declaration of indigenous rights, May 2016, shard_01502_17151, 11399
 1101, when did canada sign the un declaration of indigenous rights, May 2016, shard_01470_29433, 5126
 1101, when did canada sign the un declaration of indigenous rights, May 2016, shard_00391_4084, 5141
-1102, distance from one side of a bridge to the other crossword, span, shard_00324_19238, 188
 1103, the cuban revolt against spain was led by, Máximo Gomez, shard_01546_30561, 11732
 1103, the cuban revolt against spain was led by, Máximo Gomez, shard_00634_32942, 429
 1103, the cuban revolt against spain was led by, Máximo Gomez, shard_00253_46271, 3460
@@ -20046,7 +20112,6 @@
 1234, what channel does thursday night football come on regular tv, NBC, shard_01325_13378, 11506
 1234, what channel does thursday night football come on regular tv, NBC, shard_01460_15680, 11506
 1234, what channel does thursday night football come on regular tv, NBC, shard_01705_34153, 11506
-1236, who is new prime minister of italy 2018, TBD, shard_01680_2286, 19527
 1237, when did the subway open in new york, October 27  1904, shard_00279_28763, 2049
 1237, when did the subway open in new york, October 27  1904, shard_01242_36094, 2049
 1237, when did the subway open in new york, October 27  1904, shard_00540_31528, 797
@@ -20115,6 +20180,11 @@
 1238, what is the speed of the nascar pace car, pit road speed, shard_01406_30276, 1402
 1238, what is the speed of the nascar pace car, pit road speed, shard_01606_1045, 21378
 1239, who won the silver medal in womens figure skating, Evgenia Medvedeva, shard_01509_51711, 25019
+1240, what year is the deer hunter set in, late 1967, shard_00506_44612, 10489
+1240, what year is the deer hunter set in, late 1967, shard_00579_15707, 10487
+1240, what year is the deer hunter set in, late 1967, shard_00329_43014, 10854
+1240, what year is the deer hunter set in, late 1967, shard_00915_42770, 10854
+1240, what year is the deer hunter set in, late 1967, shard_01640_16899, 10854
 1241, what type of writing did ancient egypt use, hieroglyphs, shard_00305_9974, 1389
 1241, what type of writing did ancient egypt use, hieroglyphs, shard_00743_50013, 44
 1241, what type of writing did ancient egypt use, hieroglyphs, shard_01354_44749, 2270
@@ -20659,7 +20729,6 @@
 1264, when was the last time astros was in the world series, 2017, shard_01456_32940, 4962
 1264, when was the last time astros was in the world series, 2017, shard_00604_14106, 23
 1264, when was the last time astros was in the world series, 2017, shard_00978_17161, 196
-1265, who won so you think you can dance season 13, Kida, shard_01341_9039, 37520
 1267, who helped the british in the french and indian war, Cherokee, shard_00556_44909, 8405
 1267, who helped the british in the french and indian war, Cherokee, shard_01295_41249, 8405
 1267, who helped the british in the french and indian war, Cherokee, shard_00740_42329, 864
@@ -21970,6 +22039,7 @@
 1337, what was the united states foreign policy after ww1 started, neutrality, shard_00631_35055, 10
 1337, what was the united states foreign policy after ww1 started, neutrality, shard_00204_39842, 3009
 1337, what was the united states foreign policy after ww1 started, neutrality, shard_00732_46035, 3009
+1338, which nfl coach has the most superbowl rings, Bill Belichick, shard_01693_40620, 90541
 1340, who wrote the theme song for the winter olympics, Leo Arnaud, shard_01772_8894, 540
 1340, who wrote the theme song for the winter olympics, Leo Arnaud, shard_01745_11497, 824
 1340, who wrote the theme song for the winter olympics, Leo Arnaud, shard_01590_49235, 518
@@ -22210,6 +22280,7 @@
 1375, when did the revolution begin in the united states, 1775, shard_01079_15528, 226
 1375, when did the revolution begin in the united states, 1775, shard_00398_17693, 19
 1375, when did the revolution begin in the united states, 1775, shard_01173_44780, 19
+1377, who won the ncaa women's championship last year 2017, South Carolina Gamecocks, shard_00001_11094, 88831
 1378, who made the nuclear model of an atom, Ernest Rutherford, shard_01496_19537, 2519
 1378, who made the nuclear model of an atom, Ernest Rutherford, shard_00050_30095, 21
 1378, who made the nuclear model of an atom, Ernest Rutherford, shard_01665_29569, 2714
@@ -22382,7 +22453,6 @@
 1385, who were the nationalist in the spanish civil war, the CEDA, shard_01780_30851, 8954
 1385, who were the nationalist in the spanish civil war, the CEDA, shard_01404_51661, 26482
 1385, who were the nationalist in the spanish civil war, the CEDA, shard_00112_10207, 12369
-1386, who owns the biggest house in beverly hills, Anthony Pritzker, shard_00150_23805, 1968
 1388, where do the signals for apoptosis come from, from other cells, shard_01755_6133, 18714
 1388, where do the signals for apoptosis come from, from other cells, shard_01282_30449, 8950
 1388, where do the signals for apoptosis come from, from other cells, shard_01488_14695, 8950
@@ -24857,6 +24927,7 @@
 1537, what was the book wealth of nations about, what builds nations' wealth, shard_00514_24342, 488
 1537, what was the book wealth of nations about, what builds nations' wealth, shard_00955_43797, 469
 1537, what was the book wealth of nations about, what builds nations' wealth, shard_01417_13270, 491
+1538, most consecutive games with 20+ points - nba history, 126, shard_00934_53064, 17352
 1539, who in germany signed the treaty of versailles, Gustav Bauer, shard_01479_23300, 12892
 1539, who in germany signed the treaty of versailles, Gustav Bauer, shard_01269_11285, 13084
 1539, who in germany signed the treaty of versailles, Gustav Bauer, shard_00970_45700, 12890
@@ -26682,9 +26753,6 @@
 1630, when were the words under god added to the pledge, on Flag Day in 1954, shard_01817_34756, 1748
 1630, when were the words under god added to the pledge, on Flag Day in 1954, shard_00120_5725, 3684
 1630, when were the words under god added to the pledge, on Flag Day in 1954, shard_00790_39703, 3684
-1632, who sings the song you'll never find another love like mine, Lou Rawls, shard_00098_14959, 6043
-1632, who sings the song you'll never find another love like mine, Lou Rawls, shard_00767_1574, 6043
-1632, who sings the song you'll never find another love like mine, Lou Rawls, shard_01025_30956, 6043
 1634, in which country bikram sambhat the official calender, Nepal, shard_00385_12263, 47
 1634, in which country bikram sambhat the official calender, Nepal, shard_01020_15150, 47
 1634, in which country bikram sambhat the official calender, Nepal, shard_00485_20210, 6
@@ -26935,6 +27003,7 @@
 1650, who has been chosen as the brand ambassador of the campaign 'beti bachao-beti padhao, Sakshi Malik, shard_01465_17014, 863
 1650, who has been chosen as the brand ambassador of the campaign 'beti bachao-beti padhao, Sakshi Malik, shard_00459_5516, 717
 1650, who has been chosen as the brand ambassador of the campaign 'beti bachao-beti padhao, Sakshi Malik, shard_00657_6661, 1670
+1651, when is the second half of vikings season 5 coming out, 2018, shard_01134_15577, 2338
 1652, original cast of natasha pierre and the great comet of 1812, Amber Gray, shard_00841_42114, 49446
 1652, original cast of natasha pierre and the great comet of 1812, Amber Gray, shard_01084_3865, 4604
 1652, original cast of natasha pierre and the great comet of 1812, Amber Gray, shard_00334_16506, 50033
@@ -28509,6 +28578,12 @@
 1773, when did france and belgium invade the ruhr, 11 January 1923, shard_01791_8767, 26572
 1773, when did france and belgium invade the ruhr, 11 January 1923, shard_00495_35470, 1185
 1773, when did france and belgium invade the ruhr, 11 January 1923, shard_00742_13149, 1185
+1774, who plays the first nfl game of the season, the New England Patriots, shard_00001_16417, 5208
+1774, who plays the first nfl game of the season, the New England Patriots, shard_00309_38252, 5208
+1774, who plays the first nfl game of the season, the New England Patriots, shard_00483_2437, 5348
+1774, who plays the first nfl game of the season, the New England Patriots, shard_01656_34222, -1
+1774, who plays the first nfl game of the season, the New England Patriots, shard_01311_46879, 19919
+1774, who plays the first nfl game of the season, the New England Patriots, shard_01019_26601, 5192
 1775, who sings in walk hard the dewey cox story, John C. Reilly, shard_01128_40004, 18579
 1775, who sings in walk hard the dewey cox story, John C. Reilly, shard_01458_23504, 18579
 1776, who won the american league pennant in 2017, Houston Astros, shard_00637_31631, 3729
@@ -28959,7 +29034,6 @@
 1814, who is the head of parliament in uk, The Lord Fowler, shard_00349_7658, 2322
 1814, who is the head of parliament in uk, The Lord Fowler, shard_01667_832, 2322
 1814, who is the head of parliament in uk, The Lord Fowler, shard_00611_49299, 235
-1815, where does the sciatic nerve run in the foot, on the posterior aspect, shard_00595_10563, 1868
 1817, the creation of human beings in the kumulipo happens during which wā or period of creation, In the ninth wā, shard_00896_47761, 4902
 1819, what is cost of first class mail stamp, 49 cents, shard_00745_10314, 5345
 1819, what is cost of first class mail stamp, 49 cents, shard_00619_11923, 4454
@@ -29365,8 +29439,6 @@
 1842, when was penicillin first introduced to the public, After World War II, shard_00835_36626, 26954
 1843, what ethnic group celebrates its contribution to america in october, Filipino Americans, shard_00267_45621, 1005
 1844, when was the last time a hurricane hit massachusetts, November 3  2007, shard_01638_45190, 26839
-1845, who heads the executive department of west virginia government, the Governor of West Virginia, shard_01197_8938, 432
-1845, who heads the executive department of west virginia government, the Governor of West Virginia, shard_00023_8369, 432
 1846, who owned the colts when they left baltimore, Robert Irsay, shard_00266_46237, 5910
 1846, who owned the colts when they left baltimore, Robert Irsay, shard_00912_33982, 4781
 1846, who owned the colts when they left baltimore, Robert Irsay, shard_00870_49809, 14976
@@ -29549,6 +29621,16 @@
 1857, who has played raoul in phantom of the opera, Tim Martin Gleason, shard_01467_37118, 90654
 1857, who has played raoul in phantom of the opera, Tim Martin Gleason, shard_01520_2040, 90654
 1857, who has played raoul in phantom of the opera, Tim Martin Gleason, shard_00355_18732, 5414
+1860, where did iowa state football coach come from, Massillon, Ohio, shard_00013_11655, -1
+1860, where did iowa state football coach come from, Massillon, Ohio, shard_00286_25405, -1
+1860, where did iowa state football coach come from, Massillon, Ohio, shard_01037_48812, 14765
+1860, where did iowa state football coach come from, Massillon, Ohio, shard_00166_26505, 14897
+1860, where did iowa state football coach come from, Massillon, Ohio, shard_01668_28667, 20368
+1860, where did iowa state football coach come from, Massillon, Ohio, shard_00473_5644, 20707
+1860, where did iowa state football coach come from, Massillon, Ohio, shard_01233_34148, 19782
+1860, where did iowa state football coach come from, Massillon, Ohio, shard_01094_11426, 20986
+1860, where did iowa state football coach come from, Massillon, Ohio, shard_00213_49129, 19253
+1860, where did iowa state football coach come from, Massillon, Ohio, shard_01017_42495, 19347
 1861, when did scotland last qualify for world cup, 1998, shard_00381_28691, 36260
 1861, when did scotland last qualify for world cup, 1998, shard_01233_24359, 31753
 1861, when did scotland last qualify for world cup, 1998, shard_01107_40715, 5232
@@ -29565,7 +29647,6 @@
 1861, when did scotland last qualify for world cup, 1998, shard_00162_9733, 5093
 1861, when did scotland last qualify for world cup, 1998, shard_00247_40581, 5093
 1861, when did scotland last qualify for world cup, 1998, shard_01735_27576, 15035
-1862, who sang in the movie i walk the line, Reese Witherspoon, shard_01082_51990, 23149
 1864, what's the average lifespan of a basset hound, Median 10–12 years, shard_01743_27852, 2201
 1865, when did the great plague of london start and end, 1665 to 1666, shard_00195_11201, 4112
 1865, when did the great plague of london start and end, 1665 to 1666, shard_00280_37906, 978
@@ -29778,6 +29859,7 @@
 1869, when did to kill a mockingbird become popular, 1960, shard_00884_32708, 230
 1869, when did to kill a mockingbird become popular, 1960, shard_01250_23001, 230
 1869, when did to kill a mockingbird become popular, 1960, shard_00900_1577, 3485
+1870, who played the first nfl thursday night football game, Denver Broncos, shard_00020_13369, 3489
 1872, is jaffa cakes a biscuit or a cake, Cake, shard_01416_17652, 6
 1872, is jaffa cakes a biscuit or a cake, Cake, shard_00334_44946, 0
 1872, is jaffa cakes a biscuit or a cake, Cake, shard_00569_50589, 0
@@ -30111,6 +30193,9 @@
 1885, what type of tale is the pardoner's tale, a moral tale, shard_01406_7450, 96
 1885, what type of tale is the pardoner's tale, a moral tale, shard_01607_22959, 594
 1885, what type of tale is the pardoner's tale, a moral tale, shard_00624_31016, 1180
+1886, who is the all time leading scorer in ncaa tournament history, Pete Maravich, shard_01467_29002, 13976
+1886, who is the all time leading scorer in ncaa tournament history, Pete Maravich, shard_01230_12608, 28725
+1886, who is the all time leading scorer in ncaa tournament history, Pete Maravich, shard_01688_46573, 28725
 1887, how many times has lake placid hosted the winter olympics, twice, shard_00177_26808, 322
 1887, how many times has lake placid hosted the winter olympics, twice, shard_01580_403, 4016
 1887, how many times has lake placid hosted the winter olympics, twice, shard_01028_36967, 2398
@@ -31031,6 +31116,8 @@
 1929, what was generally the preferred way for european powers to control colonial regions, Indirect rule, shard_01529_16224, 41979
 1929, what was generally the preferred way for european powers to control colonial regions, Indirect rule, shard_00558_12496, 9623
 1929, what was generally the preferred way for european powers to control colonial regions, Indirect rule, shard_01030_36445, 9618
+1930, which is the only test playing nation that india has never beat in t20, Scotland, shard_01035_1619, 13620
+1930, which is the only test playing nation that india has never beat in t20, Scotland, shard_00309_28005, 2859
 1931, input that tells the computer which task to execute is, source code, shard_00764_17497, 312
 1931, input that tells the computer which task to execute is, source code, shard_01809_33895, 6963
 1931, input that tells the computer which task to execute is, source code, shard_01241_53070, 1827
@@ -32363,7 +32450,6 @@
 2010, who is john snow on game of thrones, Kit Harington, shard_00700_50481, 2359
 2010, who is john snow on game of thrones, Kit Harington, shard_01618_8077, 3623
 2010, who is john snow on game of thrones, Kit Harington, shard_00652_17224, 2848
-2011, list of strict nature reserve in the philippines, Palawan, shard_00039_5083, 19683
 2012, when was the last easter that fell on april 1st, 2018, shard_00926_8666, 6415
 2012, when was the last easter that fell on april 1st, 2018, shard_01141_28916, 223
 2012, when was the last easter that fell on april 1st, 2018, shard_01148_28921, 41
@@ -32406,6 +32492,7 @@
 2013, what was the city of beijing previously known as, Peking, shard_01402_21404, 127
 2013, what was the city of beijing previously known as, Peking, shard_01541_13901, 127
 2015, the secret of crickley hall how many episodes, 3, shard_01447_4059, 1786
+2016, who does the voice of the gorilla in the movie sing, Taron Egerton, shard_01807_30175, 1470
 2018, when does the regular season start in mlb, March 29  2018, shard_01534_26793, 6901
 2018, when does the regular season start in mlb, March 29  2018, shard_00977_48178, 6558
 2020, where does the name loyola university come from, St. Ignatius of Loyola, shard_00967_18506, 479
@@ -32546,7 +32633,6 @@
 2026, when did starbucks become a publicly traded company, June 1992, shard_00406_47893, 5535
 2026, when did starbucks become a publicly traded company, June 1992, shard_00704_12634, 3020
 2026, when did starbucks become a publicly traded company, June 1992, shard_01534_3539, 6954
-2027, when was nepal declared a secular state in bs, January 15  2007, shard_00837_35627, 11340
 2028, what type of novel is goodbye mr chips, Psychological fiction, shard_00061_52183, 813
 2028, what type of novel is goodbye mr chips, Psychological fiction, shard_00115_38222, 1153
 2028, what type of novel is goodbye mr chips, Psychological fiction, shard_00680_6399, 481
@@ -32792,17 +32878,6 @@
 2044, who played the original steve mcgarrett on hawaii five-o, John Joseph Patrick Ryan, shard_01640_44305, 40887
 2044, who played the original steve mcgarrett on hawaii five-o, John Joseph Patrick Ryan, shard_00920_1758, 29034
 2044, who played the original steve mcgarrett on hawaii five-o, John Joseph Patrick Ryan, shard_00107_34579, 107618
-2045, what mlb teams did deion sanders play for, San Francisco Giants, shard_00217_20422, 1364
-2045, what mlb teams did deion sanders play for, San Francisco Giants, shard_00236_45285, 1364
-2045, what mlb teams did deion sanders play for, San Francisco Giants, shard_01274_34678, 4023
-2045, what mlb teams did deion sanders play for, San Francisco Giants, shard_00825_28011, 3223
-2045, what mlb teams did deion sanders play for, San Francisco Giants, shard_00211_20466, 870
-2045, what mlb teams did deion sanders play for, San Francisco Giants, shard_00808_51630, 870
-2045, what mlb teams did deion sanders play for, San Francisco Giants, shard_01235_7474, 870
-2045, what mlb teams did deion sanders play for, San Francisco Giants, shard_01355_17770, 870
-2045, what mlb teams did deion sanders play for, San Francisco Giants, shard_01455_42243, 870
-2045, what mlb teams did deion sanders play for, San Francisco Giants, shard_01691_45610, 870
-2045, what mlb teams did deion sanders play for, San Francisco Giants, shard_01024_33622, 4988
 2046, when did the phantom of the opera open, October 1986:, shard_01363_50952, 56767
 2046, when did the phantom of the opera open, October 1986:, shard_00046_1963, 13518
 2046, when did the phantom of the opera open, October 1986:, shard_01467_37118, 8926
@@ -32898,6 +32973,12 @@
 2047, branch of science that deals with the structure of human body parts, Anatomy, shard_01234_14844, 2656
 2047, branch of science that deals with the structure of human body parts, Anatomy, shard_01654_2607, 387
 2047, branch of science that deals with the structure of human body parts, Anatomy, shard_00905_17724, 2916
+2048, what's the medal count for canada in the olympics, 501, shard_00861_23834, -1
+2048, what's the medal count for canada in the olympics, 501, shard_00330_28351, -1
+2048, what's the medal count for canada in the olympics, 501, shard_00411_21661, -1
+2048, what's the medal count for canada in the olympics, 501, shard_00657_1049, -1
+2048, what's the medal count for canada in the olympics, 501, shard_00192_18859, -1
+2048, what's the medal count for canada in the olympics, 501, shard_00457_41857, -1
 2049, what is cain and abel software used for, password recovery, shard_00050_15818, 1681
 2049, what is cain and abel software used for, password recovery, shard_01129_51878, 18823
 2049, what is cain and abel software used for, password recovery, shard_01751_31293, 1461
@@ -33484,6 +33565,7 @@
 2088, the part of the cytoskeleton made from the protein actin is called, Microfilaments, shard_01166_46229, 592
 2088, the part of the cytoskeleton made from the protein actin is called, Microfilaments, shard_01214_41603, 1890
 2088, the part of the cytoskeleton made from the protein actin is called, Microfilaments, shard_01355_28753, 1890
+2089, when is dancing on ice on the tv, 2019, shard_01241_34258, 384
 2090, who was the first executive president of guyana, Arthur Chung, shard_00605_42543, 6843
 2090, who was the first executive president of guyana, Arthur Chung, shard_00966_4253, 6843
 2090, who was the first executive president of guyana, Arthur Chung, shard_00461_21804, 1565
@@ -33536,7 +33618,6 @@
 2091, when did the us take over wake island, July 4  1898, shard_00450_87, 3591
 2091, when did the us take over wake island, July 4  1898, shard_00272_23303, 12761
 2091, when did the us take over wake island, July 4  1898, shard_01454_34464, 22073
-2092, where does the term the west come from, the Roman Empire, shard_01158_2916, 12564
 2093, who played john coffey in the movie the green mile, Michael Clarke Duncan, shard_00474_9128, 3048
 2093, who played john coffey in the movie the green mile, Michael Clarke Duncan, shard_01540_39699, 8710
 2093, who played john coffey in the movie the green mile, Michael Clarke Duncan, shard_01699_41831, 11093
@@ -35533,7 +35614,6 @@
 2238, who helped them recapture mycenae once they were old enough to fight, Aegisthus, shard_00199_40603, 2709
 2238, who helped them recapture mycenae once they were old enough to fight, Aegisthus, shard_00304_4543, 2709
 2238, who helped them recapture mycenae once they were old enough to fight, Aegisthus, shard_00579_38157, 3879
-2239, who is the cast of the new tomb raider movie, Alicia Vikander as Lara Croft, shard_01451_37100, 12205
 2240, who came up with the term baby boomer, The Washington Post, shard_01353_35308, 3282
 2240, who came up with the term baby boomer, The Washington Post, shard_01633_49920, 2826
 2240, who came up with the term baby boomer, The Washington Post, shard_01105_17449, 2910
@@ -36284,7 +36364,6 @@
 2295, what is the ultimate objective of financial management, Profit maximization, shard_01094_1710, 540
 2295, what is the ultimate objective of financial management, Profit maximization, shard_01248_19525, 2574
 2295, what is the ultimate objective of financial management, Profit maximization, shard_01455_26594, 1018
-2296, what year did the price is right first air, November 26  1956, shard_00277_23734, 3514
 2298, when did colour tv come out in uk, July 1  1967, shard_01589_47708, 1922
 2298, when did colour tv come out in uk, July 1  1967, shard_01579_7809, 2508
 2298, when did colour tv come out in uk, July 1  1967, shard_00155_20064, 271
@@ -36392,7 +36471,6 @@
 2303, what types of cells go through binary fission, domains of Archaea and Bacteria, shard_00696_29448, 748
 2303, what types of cells go through binary fission, domains of Archaea and Bacteria, shard_00303_50638, 908
 2303, what types of cells go through binary fission, domains of Archaea and Bacteria, shard_00620_7779, 501
-2304, who wrote it's gonna take a lot of love, Neil Young, shard_00930_47245, 1942
 2308, who played hyde in league of extraordinary gentlemen, Jason Flemyng, shard_00172_48492, 16070
 2308, who played hyde in league of extraordinary gentlemen, Jason Flemyng, shard_00240_31132, 8003
 2308, who played hyde in league of extraordinary gentlemen, Jason Flemyng, shard_01646_12559, 8003
@@ -36409,6 +36487,7 @@
 2311, who has hosted the most fifa world cups, Italy, shard_00449_24104, 2991
 2311, who has hosted the most fifa world cups, Italy, shard_00826_29136, 3057
 2311, who has hosted the most fifa world cups, Italy, shard_01115_39885, 3057
+2312, who was the top scorer in 2014 world cup, James Rodríguez, shard_00046_52976, 4421
 2313, when was the last time the carolina hurricanes made the playoffs, 2008–09, shard_00691_16167, 17491
 2314, the first permanent european settlement on future united states soil was located where, Jamestown, shard_01424_20956, 3298
 2314, the first permanent european settlement on future united states soil was located where, Jamestown, shard_00944_27718, 8639
@@ -37170,6 +37249,7 @@
 2360, who owns the delano hotel in las vegas, MGM Resorts International, shard_00069_38402, 10328
 2360, who owns the delano hotel in las vegas, MGM Resorts International, shard_00831_42058, 9871
 2360, who owns the delano hotel in las vegas, MGM Resorts International, shard_00591_15715, 1538
+2361, who is the owner of the crowne plaza, InterContinental Hotels Group, shard_00029_20111, -1
 2363, who won the 2017 women's wimbledon final, Garbiñe Muguruza, shard_01364_36598, 7019
 2363, who won the 2017 women's wimbledon final, Garbiñe Muguruza, shard_00582_7387, 6985
 2364, what part of maryland is close to washington dc, Charles County, shard_00187_24826, 7185
@@ -37527,9 +37607,15 @@
 2380, how many plane surfaces does a cylinder have, two parallel planes, shard_01764_21737, 919
 2381, who plays max voice in a goofy movie, Jason Marsden, shard_00614_35909, 7048
 2381, who plays max voice in a goofy movie, Jason Marsden, shard_00768_112, 7048
-2384, when was the miraculous journey of edward tulane published, 2006, shard_00336_19423, 3203
-2384, when was the miraculous journey of edward tulane published, 2006, shard_00854_42093, 3203
-2384, when was the miraculous journey of edward tulane published, 2006, shard_01123_5533, 3203
+2382, when did ford change the f150 body style, the 2009 model year, shard_00774_16830, 1036
+2382, when did ford change the f150 body style, the 2009 model year, shard_01658_27319, 1036
+2382, when did ford change the f150 body style, the 2009 model year, shard_01688_5391, 1169
+2382, when did ford change the f150 body style, the 2009 model year, shard_00553_52622, 1112
+2382, when did ford change the f150 body style, the 2009 model year, shard_00969_51595, 1112
+2382, when did ford change the f150 body style, the 2009 model year, shard_01280_2829, 1112
+2382, when did ford change the f150 body style, the 2009 model year, shard_00922_39004, -1
+2382, when did ford change the f150 body style, the 2009 model year, shard_00073_15654, -1
+2382, when did ford change the f150 body style, the 2009 model year, shard_01099_33301, -1
 2385, who is the current defence against the dark arts teacher, Amycus Carrow, shard_01343_34826, 8422
 2385, who is the current defence against the dark arts teacher, Amycus Carrow, shard_01179_39125, 8928
 2385, who is the current defence against the dark arts teacher, Amycus Carrow, shard_01030_1606, 9442
@@ -38075,7 +38161,6 @@
 2424, who is ranked 1 in women's tennis, Simona Halep, shard_00088_41254, 3694
 2424, who is ranked 1 in women's tennis, Simona Halep, shard_01149_9446, 3694
 2424, who is ranked 1 in women's tennis, Simona Halep, shard_01499_48747, 3694
-2425, who won the mens curling in the olympics 2018, United States, shard_00373_36045, 1781
 2427, who defeated the last remaining roman army in europe, Goths, shard_00713_22930, 8096
 2427, who defeated the last remaining roman army in europe, Goths, shard_00860_29696, 8096
 2427, who defeated the last remaining roman army in europe, Goths, shard_00604_42046, 836
@@ -38378,7 +38463,6 @@
 2445, when was the first underwater cable laid beneath the english channel, 1850, shard_01042_30592, 5075
 2445, when was the first underwater cable laid beneath the english channel, 1850, shard_00883_46085, 1976
 2445, when was the first underwater cable laid beneath the english channel, 1850, shard_01320_3604, 2431
-2446, who wrote the song balls to the wall, Deaffy, shard_01341_47989, 4222
 2447, who plays the girl in wreck it ralph, Stefanie Scott, shard_00035_48465, 3745
 2447, who plays the girl in wreck it ralph, Stefanie Scott, shard_01444_21138, 3745
 2447, who plays the girl in wreck it ralph, Stefanie Scott, shard_00222_2773, 3775
@@ -38576,7 +38660,6 @@
 2463, who is considered as architect of india constitution, B. R. Ambedkar, shard_00622_48718, 4
 2463, who is considered as architect of india constitution, B. R. Ambedkar, shard_00375_26562, 936
 2463, who is considered as architect of india constitution, B. R. Ambedkar, shard_01127_845, 3689
-2466, where is the new stadium being built in las vegas, Paradise  Nevada, shard_00001_11094, 142414
 2467, where in the bible can i find the lord's prayer, the Gospel of Matthew, shard_01635_43669, 12328
 2467, where in the bible can i find the lord's prayer, the Gospel of Matthew, shard_01282_34028, 39583
 2467, where in the bible can i find the lord's prayer, the Gospel of Matthew, shard_00094_33456, 7258
@@ -39375,6 +39458,7 @@
 2521, who starred in the movie on golden pond, William Lanteau, shard_00140_2009, 1248
 2521, who starred in the movie on golden pond, William Lanteau, shard_01233_27599, 1248
 2521, who starred in the movie on golden pond, William Lanteau, shard_00781_4377, 4004
+2523, latest series of keeping up with the kardashians, 14, shard_01690_3244, 1271
 2524, avatar the last airbender season 3 episode 12, The Western Air Temple, shard_01801_7884, 3544
 2524, avatar the last airbender season 3 episode 12, The Western Air Temple, shard_00009_41576, 10073
 2524, avatar the last airbender season 3 episode 12, The Western Air Temple, shard_00424_1645, 11323
@@ -40590,8 +40674,6 @@
 2581, when was the last year the raiders won the superbowl, 1983, shard_00399_6792, 8536
 2581, when was the last year the raiders won the superbowl, 1983, shard_01246_42687, 8532
 2581, when was the last year the raiders won the superbowl, 1983, shard_01490_23468, 8536
-2582, how much energy does coal produce in the us, 16.5 quadrillion BTUs, shard_00876_10127, 4003
-2582, how much energy does coal produce in the us, 16.5 quadrillion BTUs, shard_01174_51575, 1034
 2583, what is the definition of the word hosanna, save  rescue  savior, shard_00283_34003, 827
 2583, what is the definition of the word hosanna, save  rescue  savior, shard_00553_8490, 425
 2583, what is the definition of the word hosanna, save  rescue  savior, shard_00687_26070, 394
@@ -40745,6 +40827,7 @@
 2595, in which sea pearl is found in india, the Indian Ocean, shard_00816_46050, 5245
 2595, in which sea pearl is found in india, the Indian Ocean, shard_00278_1618, 18231
 2595, in which sea pearl is found in india, the Indian Ocean, shard_00914_48839, 18176
+2596, when did they stop making the nissan xterra, 2015, shard_01334_21819, 5431
 2597, what does ctrl+shift+t do, New tab, shard_01239_17834, 962
 2597, what does ctrl+shift+t do, New tab, shard_00360_27998, 2001
 2597, what does ctrl+shift+t do, New tab, shard_01581_5214, 4917
@@ -41049,7 +41132,6 @@
 2612, by 1914 which of the following african countries were still independent, Liberia, shard_01474_11933, 43465
 2612, by 1914 which of the following african countries were still independent, Liberia, shard_01674_8678, 43465
 2612, by 1914 which of the following african countries were still independent, Liberia, shard_01401_32978, 1307
-2613, what is best thing i never had song about, revenge and karma, shard_01118_49208, 3656
 2615, who appoints the members of the board of governors of the federal reserve, the President, shard_00403_12035, 1617
 2615, who appoints the members of the board of governors of the federal reserve, the President, shard_00326_42893, 1127
 2615, who appoints the members of the board of governors of the federal reserve, the President, shard_00852_47136, 887
@@ -41355,6 +41437,11 @@
 2636, who has the most conference championships in college basketball, Kansas, shard_01163_1428, 3261
 2636, who has the most conference championships in college basketball, Kansas, shard_00896_22823, 3261
 2636, who has the most conference championships in college basketball, Kansas, shard_01564_27666, 8078
+2637, who played sandy's jock boyfriend in grease, John Travolta, shard_00872_41133, 2207
+2637, who played sandy's jock boyfriend in grease, John Travolta, shard_00191_44263, 2486
+2637, who played sandy's jock boyfriend in grease, John Travolta, shard_01202_5435, 2486
+2637, who played sandy's jock boyfriend in grease, John Travolta, shard_01561_21539, 2486
+2637, who played sandy's jock boyfriend in grease, John Travolta, shard_01706_3357, 14846
 2640, what type of bridge is the charles bridge, a bow bridge, shard_01029_9528, 110
 2640, what type of bridge is the charles bridge, a bow bridge, shard_01218_22825, 286
 2640, what type of bridge is the charles bridge, a bow bridge, shard_01817_36192, 286
@@ -41657,10 +41744,6 @@
 2654, what network is showing the monday night football game, ESPN, shard_00766_17140, 14535
 2654, what network is showing the monday night football game, ESPN, shard_00535_21958, 973
 2654, what network is showing the monday night football game, ESPN, shard_00167_36147, 14321
-2656, who holds the record for most platinum albums, The Beatles, shard_01009_10358, 0
-2656, who holds the record for most platinum albums, The Beatles, shard_00057_6707, 11960
-2656, who holds the record for most platinum albums, The Beatles, shard_01108_48857, 1307
-2656, who holds the record for most platinum albums, The Beatles, shard_01142_48691, 12892
 2657, which battle ended britain's support for the south, Battle of Antietam, shard_00579_5926, 26756
 2657, which battle ended britain's support for the south, Battle of Antietam, shard_01555_44151, 26756
 2657, which battle ended britain's support for the south, Battle of Antietam, shard_01666_33334, 42781
@@ -42533,6 +42616,10 @@
 2704, the recipient of first jnanpith award was an author which language, Malayalam, shard_00387_22458, 1258
 2704, the recipient of first jnanpith award was an author which language, Malayalam, shard_00582_7698, 6363
 2704, the recipient of first jnanpith award was an author which language, Malayalam, shard_01261_23357, 2176
+2705, who is the cast of despicable me 3, Steve Carell, shard_00057_24664, 3343
+2705, who is the cast of despicable me 3, Steve Carell, shard_00312_25172, 9025
+2705, who is the cast of despicable me 3, Steve Carell, shard_01020_19735, 7961
+2705, who is the cast of despicable me 3, Steve Carell, shard_00946_20007, 9738
 2706, what is the tigers name in life of pi, Richard Parker, shard_01478_14835, 323
 2706, what is the tigers name in life of pi, Richard Parker, shard_01338_8256, 451
 2706, what is the tigers name in life of pi, Richard Parker, shard_00400_18497, 3136
@@ -43158,7 +43245,6 @@
 2738, who wrote the song city of new orleans, Steve Goodman, shard_00872_25045, 5785
 2738, who wrote the song city of new orleans, Steve Goodman, shard_01275_17043, 5785
 2738, who wrote the song city of new orleans, Steve Goodman, shard_00144_26161, 3881
-2741, when was night at the museum 3 filmed, British Columbia  Canada, shard_00244_49045, 3652
 2742, who added a press room to the white house, Richard Nixon, shard_00856_42417, 4433
 2742, who added a press room to the white house, Richard Nixon, shard_00931_36164, 3425
 2742, who added a press room to the white house, Richard Nixon, shard_01588_30236, 4484
@@ -44254,6 +44340,7 @@
 2794, where does sound travel fastest solid liquid or gas, solids, shard_00671_31780, 665
 2796, who sang on the back in black album, Brian Johnson, shard_01019_6957, 49353
 2796, who sang on the back in black album, Brian Johnson, shard_01239_5894, 49342
+2798, what year did bennie and the jets come out, in 1973, shard_00559_41384, 2670
 2800, who plays jack skellington in nightmare before christmas, Danny Elfman, shard_01088_15407, 14485
 2800, who plays jack skellington in nightmare before christmas, Danny Elfman, shard_00173_37947, 3538
 2800, who plays jack skellington in nightmare before christmas, Danny Elfman, shard_00574_12603, 4968
@@ -47179,7 +47266,6 @@
 2974, where is bigg boss tamil house is located, Chennai, shard_00777_10814, 32039
 2975, who wrote yakkity yak don't talk back, Jerry Leiber and Mike Stoller, shard_01690_28057, 479
 2975, who wrote yakkity yak don't talk back, Jerry Leiber and Mike Stoller, shard_00512_7168, 4844
-2976, who played doctor smith in lost in space, Jonathan Harris, shard_00494_2593, 10206
 2977, who won the ncaa basketball championship in 1994, Arkansas, shard_00155_13164, 3895
 2977, who won the ncaa basketball championship in 1994, Arkansas, shard_01163_1428, 3535
 2977, who won the ncaa basketball championship in 1994, Arkansas, shard_00896_22823, 3541
@@ -48531,7 +48617,6 @@
 3053, when did the battle of bull run start, July 21  1861, shard_01745_11961, 142
 3053, when did the battle of bull run start, July 21  1861, shard_01362_5669, 2154
 3053, when did the battle of bull run start, July 21  1861, shard_00049_44142, 378
-3054, what was the first kind of vertebrate to exist on earth, believed to be the Myllokunmingia, shard_00750_30555, 4843
 3057, in the early 1800s california society was dominated by which group, Spanish, shard_01242_3908, 3259
 3057, in the early 1800s california society was dominated by which group, Spanish, shard_00388_39936, 3242
 3057, in the early 1800s california society was dominated by which group, Spanish, shard_00769_15675, 7501
@@ -48716,8 +48801,6 @@
 3077, when did the passion of the christ come out, February 25  2004, shard_00743_5702, 380
 3077, when did the passion of the christ come out, February 25  2004, shard_01148_17036, 1870
 3077, when did the passion of the christ come out, February 25  2004, shard_00892_17236, 1060
-3078, star wars the clone wars season 3 episode 1, Clone Cadets, shard_00536_9346, 12492
-3078, star wars the clone wars season 3 episode 1, Clone Cadets, shard_00119_30195, 2394
 3079, is the united states a country or nation, country, shard_00366_10236, 169
 3079, is the united states a country or nation, country, shard_01613_5942, 46
 3079, is the united states a country or nation, country, shard_00686_23493, 481
@@ -48830,6 +48913,7 @@
 3087, when did first fast and furious come out, 2001, shard_00334_15661, 6871
 3087, when did first fast and furious come out, 2001, shard_00508_45463, 6871
 3087, when did first fast and furious come out, 2001, shard_00005_21211, 815
+3088, when does the second half of vikings season 5 air, 2018, shard_01134_15577, 2338
 3089, what kind of fish live in the salton sea, tilapia, shard_00445_26660, 2405
 3089, what kind of fish live in the salton sea, tilapia, shard_01505_40405, 2405
 3089, what kind of fish live in the salton sea, tilapia, shard_01700_29870, 2405
@@ -48903,6 +48987,7 @@
 3090, who sang the song you got a friend in me, Lyle Lovett, shard_01754_41009, 4529
 3094, who headed the 7th central pay commission of india, Justice A.K Mathur, shard_00684_11271, 15944
 3094, who headed the 7th central pay commission of india, Justice A.K Mathur, shard_00506_36595, 6883
+3095, where is season 3 of the detour filmed, Alaska, shard_00246_30214, 8858
 3096, who plays the voice of sulley in monsters inc, John Goodman, shard_00097_26198, 453
 3096, who plays the voice of sulley in monsters inc, John Goodman, shard_00154_32606, 453
 3096, who plays the voice of sulley in monsters inc, John Goodman, shard_00847_36151, 8465
@@ -49417,7 +49502,6 @@
 3125, when did world war 2 officially start and end, 1939, shard_01515_41815, 6137
 3125, when did world war 2 officially start and end, 1939, shard_00074_30061, 1978
 3125, when did world war 2 officially start and end, 1939, shard_00027_27075, 90
-3126, when does the new death of superman come out, 2019, shard_01578_2731, 6138
 3127, who win road march in trinidad and tobago, Superblue, shard_00695_9330, 4783
 3127, who win road march in trinidad and tobago, Superblue, shard_00144_36820, 4893
 3127, who win road march in trinidad and tobago, Superblue, shard_01091_48483, 4893
@@ -49477,7 +49561,6 @@
 3130, when did the angel of the north get built, 1998, shard_00649_20948, 921
 3130, when did the angel of the north get built, 1998, shard_00713_45223, 6386
 3130, when did the angel of the north get built, 1998, shard_01574_8967, 3950
-3131, who plays lois's dad on family guy, MacFarlane, shard_01275_51995, 2680
 3132, who plays david in alvin and the chipmunks, Jason Lee, shard_00122_19611, 4341
 3132, who plays david in alvin and the chipmunks, Jason Lee, shard_00520_1443, 3580
 3132, who plays david in alvin and the chipmunks, Jason Lee, shard_01531_32858, 3580
@@ -50468,6 +50551,10 @@
 3175, who won the men's ice skating 2018, Yuzuru Hanyu, shard_00523_20151, 31274
 3175, who won the men's ice skating 2018, Yuzuru Hanyu, shard_00432_42794, 6571
 3177, when did they stop putting lead in paint, 1992, shard_01446_23099, 1478
+3179, who has won the cma entertainer of the year the most, Garth Brooks, shard_01105_21588, 6597
+3179, who has won the cma entertainer of the year the most, Garth Brooks, shard_00939_21743, 5558
+3179, who has won the cma entertainer of the year the most, Garth Brooks, shard_00150_30784, 11584
+3179, who has won the cma entertainer of the year the most, Garth Brooks, shard_01443_49591, 12162
 3181, where is this years army navy game played, Lincoln Financial Field in Philadelphia, shard_01468_7229, 7431
 3181, where is this years army navy game played, Lincoln Financial Field in Philadelphia, shard_00217_18937, 471
 3181, where is this years army navy game played, Lincoln Financial Field in Philadelphia, shard_01278_39283, 471
@@ -50768,7 +50855,6 @@
 3195, who won the most gold metals in olympics, American swimmer Michael Phelps, shard_01030_28413, 3806
 3195, who won the most gold metals in olympics, American swimmer Michael Phelps, shard_01658_52143, 102
 3195, who won the most gold metals in olympics, American swimmer Michael Phelps, shard_01392_26590, 5956
-3196, who came first second and third on the grand national, Pleasant Company, shard_00240_32034, 9704
 3197, when did the book thief movie come out, November 27  2013, shard_01446_14407, 1159
 3197, when did the book thief movie come out, November 27  2013, shard_01283_29664, 5233
 3197, when did the book thief movie come out, November 27  2013, shard_01137_19383, 4033
@@ -51160,7 +51246,6 @@
 3229, what was the purpose of the mall of america, shopping, shard_00916_17629, 74
 3229, what was the purpose of the mall of america, shopping, shard_00916_33143, 74
 3229, what was the purpose of the mall of america, shopping, shard_01468_40208, 74
-3230, when did television come out in the us, 928 , shard_00381_2275, 11578
 3231, what is small business tax rate in canada, 10.5%, shard_01498_47865, 1834
 3231, what is small business tax rate in canada, 10.5%, shard_00181_35569, 1822
 3231, what is small business tax rate in canada, 10.5%, shard_01072_2575, 1822
@@ -52189,10 +52274,6 @@
 3293, where is union station in washington dc located, 50 Massachusetts Avenue NE, shard_00801_31250, 0
 3293, where is union station in washington dc located, 50 Massachusetts Avenue NE, shard_00861_16488, 0
 3293, where is union station in washington dc located, 50 Massachusetts Avenue NE, shard_01026_31595, 0
-3298, in which year was led zepplin refused entry into singapore because the band members had long hair, 1972, shard_00079_14934, 5318
-3298, in which year was led zepplin refused entry into singapore because the band members had long hair, 1972, shard_00712_50657, 5318
-3298, in which year was led zepplin refused entry into singapore because the band members had long hair, 1972, shard_01167_35546, 5318
-3298, in which year was led zepplin refused entry into singapore because the band members had long hair, 1972, shard_01747_15055, 5318
 3299, where does the term pop music come from, Britain, shard_01434_24370, 6180
 3299, where does the term pop music come from, Britain, shard_01634_25717, 2632
 3299, where does the term pop music come from, Britain, shard_00723_36304, 2679
@@ -52295,6 +52376,7 @@
 3301, list the seven gifts of the holy spirit, fortitude, shard_01023_1356, 292
 3301, list the seven gifts of the holy spirit, fortitude, shard_01491_28521, 292
 3301, list the seven gifts of the holy spirit, fortitude, shard_00176_9533, 111
+3304, when was the last time the crows were in the grand final, 2017, shard_00240_32034, 9322
 3305, who plays scrooge mcduck in the new ducktales, David Tennant, shard_00634_32332, 24575
 3305, who plays scrooge mcduck in the new ducktales, David Tennant, shard_00206_50363, 25387
 3305, who plays scrooge mcduck in the new ducktales, David Tennant, shard_01529_28443, 20306
@@ -53516,6 +53598,14 @@
 3374, how many nuclear power plants in washington state, 3, shard_01436_35358, 455
 3374, how many nuclear power plants in washington state, 3, shard_00573_13757, 66
 3374, how many nuclear power plants in washington state, 3, shard_01489_38654, 70
+3375, what time can you legally buy alcohol in michigan, 7 a.m., shard_01128_31133, -1
+3375, what time can you legally buy alcohol in michigan, 7 a.m., shard_00062_30401, -1
+3375, what time can you legally buy alcohol in michigan, 7 a.m., shard_00832_26290, -1
+3375, what time can you legally buy alcohol in michigan, 7 a.m., shard_00365_43299, -1
+3375, what time can you legally buy alcohol in michigan, 7 a.m., shard_00391_4769, -1
+3375, what time can you legally buy alcohol in michigan, 7 a.m., shard_00960_38383, -1
+3375, what time can you legally buy alcohol in michigan, 7 a.m., shard_01323_4739, -1
+3375, what time can you legally buy alcohol in michigan, 7 a.m., shard_01341_44233, -1
 3376, who was the book of philippians written to, the church at Philippi, shard_01538_11851, 1194
 3376, who was the book of philippians written to, the church at Philippi, shard_00311_27282, 28
 3376, who was the book of philippians written to, the church at Philippi, shard_01247_464, 1258
@@ -54397,6 +54487,9 @@
 3433, where did students for a democratic society start, Ann Arbor  Michigan, shard_01512_35804, 154
 3433, where did students for a democratic society start, Ann Arbor  Michigan, shard_01744_9169, 154
 3433, where did students for a democratic society start, Ann Arbor  Michigan, shard_00105_36517, 153
+3436, where does sex and the city take place, New York City, shard_00358_22413, 9071
+3436, where does sex and the city take place, New York City, shard_00429_47201, 11202
+3436, where does sex and the city take place, New York City, shard_01610_4332, 4421
 3437, what are the band members names of the rolling stones, Ronnie Wood, shard_00616_44494, 1415
 3437, what are the band members names of the rolling stones, Ronnie Wood, shard_00610_4159, 202
 3437, what are the band members names of the rolling stones, Ronnie Wood, shard_01070_26733, 584
@@ -54524,9 +54617,6 @@
 3443, who does the voice of the beast in the new movie, Dan Stevens, shard_00484_52645, 3453
 3444, when was the first horrid henry book written, published in 1994, shard_00354_2243, 5395
 3444, when was the first horrid henry book written, published in 1994, shard_01668_51730, 5395
-3445, what year did return of the mack come out, 18 March 1996, shard_00489_31256, 6851
-3445, what year did return of the mack come out, 18 March 1996, shard_00517_27548, 6851
-3445, what year did return of the mack come out, 18 March 1996, shard_01656_37383, 6851
 3446, who says that which we call a rose, Juliet, shard_01728_13911, 197
 3446, who says that which we call a rose, Juliet, shard_01017_22286, 2938
 3446, who says that which we call a rose, Juliet, shard_01170_39920, 258
@@ -55179,8 +55269,6 @@
 3476, who abandoned traditional harmony and created the twelve-tone system for composition, Arnold Schoenberg, shard_00595_51430, 87
 3476, who abandoned traditional harmony and created the twelve-tone system for composition, Arnold Schoenberg, shard_00637_21891, 87
 3476, who abandoned traditional harmony and created the twelve-tone system for composition, Arnold Schoenberg, shard_01635_45955, 87
-3477, who are the nbc olympic ice skating commentators, Jonny Moseley, shard_01222_42329, 5127
-3477, who are the nbc olympic ice skating commentators, Jonny Moseley, shard_01755_39252, 20069
 3478, where does the band imagine dragons come from, Las Vegas  Nevada, shard_01609_52844, 3575
 3478, where does the band imagine dragons come from, Las Vegas  Nevada, shard_00806_23953, 577
 3482, where does the water come from to fill lake eyre, Warburton River, shard_00762_53180, 1592
@@ -55427,6 +55515,9 @@
 3495, who was the declaration of independence written for, the Second Continental Congress, shard_01607_35350, 3248
 3495, who was the declaration of independence written for, the Second Continental Congress, shard_00533_43698, 891
 3495, who was the declaration of independence written for, the Second Continental Congress, shard_01472_52219, 3294
+3497, where are they building the new raiders stadium, Paradise, Nevada, shard_00647_12339, -1
+3497, where are they building the new raiders stadium, Paradise, Nevada, shard_00449_28, -1
+3497, where are they building the new raiders stadium, Paradise, Nevada, shard_00644_17771, 6099
 3499, who has the most rings in the nba right now 2017, Boston Celtics center Bill Russell, shard_01495_6233, 2983
 3499, who has the most rings in the nba right now 2017, Boston Celtics center Bill Russell, shard_00776_41111, 0
 3499, who has the most rings in the nba right now 2017, Boston Celtics center Bill Russell, shard_00206_27871, 9459
@@ -55625,6 +55716,23 @@
 3513, when was fingerprinting first used by the police, the early 20th century, shard_01508_22674, 1455
 3513, when was fingerprinting first used by the police, the early 20th century, shard_00137_13808, 1452
 3513, when was fingerprinting first used by the police, the early 20th century, shard_01286_33704, 1524
+3514, where does aarp fall on the political spectrum, non-partisan, shard_00243_40565, 8488
+3514, where does aarp fall on the political spectrum, non-partisan, shard_01137_16704, 8488
+3514, where does aarp fall on the political spectrum, non-partisan, shard_00130_10007, -1
+3514, where does aarp fall on the political spectrum, non-partisan, shard_01058_2837, -1
+3514, where does aarp fall on the political spectrum, non-partisan, shard_01446_37290, -1
+3514, where does aarp fall on the political spectrum, non-partisan, shard_00819_7580, -1
+3514, where does aarp fall on the political spectrum, non-partisan, shard_01280_45843, -1
+3514, where does aarp fall on the political spectrum, non-partisan, shard_01480_808, -1
+3514, where does aarp fall on the political spectrum, non-partisan, shard_00279_386, -1
+3514, where does aarp fall on the political spectrum, non-partisan, shard_00855_19492, -1
+3514, where does aarp fall on the political spectrum, non-partisan, shard_00858_52358, -1
+3514, where does aarp fall on the political spectrum, non-partisan, shard_00144_10933, -1
+3514, where does aarp fall on the political spectrum, non-partisan, shard_01104_40761, -1
+3514, where does aarp fall on the political spectrum, non-partisan, shard_01373_14561, -1
+3514, where does aarp fall on the political spectrum, non-partisan, shard_00655_37204, -1
+3514, where does aarp fall on the political spectrum, non-partisan, shard_01057_34473, -1
+3514, where does aarp fall on the political spectrum, non-partisan, shard_01549_29351, -1
 3515, when did the united states acquired puerto rico, 1898, shard_00187_15208, 1479
 3515, when did the united states acquired puerto rico, 1898, shard_00275_16156, 1479
 3515, when did the united states acquired puerto rico, 1898, shard_01744_34393, 1479
@@ -56451,10 +56559,6 @@
 3576, when was the last time there was a school shooting in canada, January 22  2016, shard_00911_49025, 11870
 3576, when was the last time there was a school shooting in canada, January 22  2016, shard_00298_16883, 8615
 3576, when was the last time there was a school shooting in canada, January 22  2016, shard_01130_28032, 6247
-3577, when was the last time.michigan beat ohio state, 2011, shard_01042_13910, 19588
-3577, when was the last time.michigan beat ohio state, 2011, shard_01075_19357, 19588
-3577, when was the last time.michigan beat ohio state, 2011, shard_00534_46856, 5455
-3577, when was the last time.michigan beat ohio state, 2011, shard_00597_35665, 5455
 3578, when does the stock market open in hong kong, 09:15, shard_01333_9313, 4269
 3578, when does the stock market open in hong kong, 09:15, shard_00496_40183, 7130
 3580, what type of fuel goes in a zippo, lighter fluid, shard_00926_24353, 2691
@@ -56589,7 +56693,6 @@
 3591, who was selected for the 2018 football hall of fame, Ray Lewis, shard_00170_8222, 37616
 3591, who was selected for the 2018 football hall of fame, Ray Lewis, shard_00721_48633, 9972
 3591, who was selected for the 2018 football hall of fame, Ray Lewis, shard_01348_50121, 24878
-3593, who plays the mother of howard on big bang theory, Carol Ann Susi, shard_01320_8577, 1692
 3594, what makes a mini bike a mini bike, a miniature motorcycle, shard_00734_6488, 110
 3594, what makes a mini bike a mini bike, a miniature motorcycle, shard_01584_33712, 110
 3594, what makes a mini bike a mini bike, a miniature motorcycle, shard_00376_7810, 110
@@ -56649,8 +56752,6 @@
 3597, turkey stuffed with a duck stuffed with a chicken, Turducken, shard_01321_8108, 14
 3597, turkey stuffed with a duck stuffed with a chicken, Turducken, shard_00406_28519, 2595
 3597, turkey stuffed with a duck stuffed with a chicken, Turducken, shard_01590_23827, 74
-3598, who came up with the initial concept of protons and neutrons, Dmitri Ivanenko, shard_01190_14395, 3102
-3598, who came up with the initial concept of protons and neutrons, Dmitri Ivanenko, shard_01198_2537, 7612
 3599, when was the last summer olympics in the usa, 1996, shard_00566_6227, 4012
 3599, when was the last summer olympics in the usa, 1996, shard_00968_50063, 4012
 3599, when was the last summer olympics in the usa, 1996, shard_00976_4301, 6614

@@ -13,8 +13,14 @@ env/
 
 # Experiment outputs
 output/
+bm25_runs/
+slurm_logs/
 *.pkl
 *.log
+
+# Local scripts
+evaluate_nanochat.sh
+run_nanochat_inference.sh
 
 # IDE
 .vscode/
@@ -28,7 +34,9 @@ Thumbs.db
 
 # Temp / test outputs
 tmp/
+.codex
 
 # Large files
 *.parquet
 *.index
+fineweb-edu-index/
