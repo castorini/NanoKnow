@@ -7,8 +7,6 @@ import torch
 from tqdm import tqdm
 
 import sys
-sys.path.append("/u201/njedidi/past_projects/nanochat_tests_nour/nanochat_exploration/")
-from nanochat.checkpoint_manager import build_model
 # from nanochat.common import autodetect_device_type
 
 from pyserini.eval.evaluate_dpr_retrieval import has_answers, SimpleTokenizer, _normalize
@@ -16,6 +14,34 @@ from pyserini.search.lucene import LuceneSearcher
 from custom_evals.llm_judge import LLMJudge #, clean_json_output
 
 random.seed(42)
+
+
+def resolve_nanochat_build_model(nanochat_dir=None):
+    nanochat_path = nanochat_dir or os.environ.get("NANOCHAT_DIR")
+
+    if nanochat_path:
+        nanochat_path = os.path.abspath(os.path.expanduser(nanochat_path))
+        if not os.path.isdir(nanochat_path):
+            raise FileNotFoundError(
+                f"NanoChat directory not found: {nanochat_path}. "
+                "Pass --nanochat-dir /path/to/nanochat or set NANOCHAT_DIR."
+            )
+        if nanochat_path not in sys.path:
+            sys.path.insert(0, nanochat_path)
+
+    try:
+        from nanochat.checkpoint_manager import build_model
+    except ImportError as exc:
+        setup_hint = (
+            "Could not import nanochat. Install NanoChat in this Python "
+            "environment, pass --nanochat-dir /path/to/nanochat, or set "
+            "NANOCHAT_DIR=/path/to/nanochat."
+        )
+        if nanochat_path:
+            setup_hint += f" Tried NanoChat directory: {nanochat_path}."
+        raise ImportError(setup_hint) from exc
+
+    return build_model
 
 
 def load_text_row(docid, searcher):
@@ -120,7 +146,8 @@ def load_unified_results_from_qrels(qrels_dir: str, dataset: str) -> list[dict]:
     unified_results.sort(key=lambda item: int(item["id"]))
     return unified_results
 
-def load_inference_engine(checkpoint_dir, step, device):
+def load_inference_engine(checkpoint_dir, step, device, nanochat_dir=None):
+    build_model = resolve_nanochat_build_model(nanochat_dir)
     device_obj = torch.device(device)
     model, tokenizer, _ = build_model(
         checkpoint_dir=checkpoint_dir,
@@ -314,10 +341,21 @@ if __name__ == '__main__':
     parser.add_argument("--fineweb_index_path", type=str, required=True)
     parser.add_argument("--output_dir", type=str, required=True)
     parser.add_argument("--device", type=str, default="cuda")
+    parser.add_argument(
+        "--nanochat-dir",
+        type=str,
+        default=None,
+        help="Path to a local NanoChat checkout. Can also be set with NANOCHAT_DIR.",
+    )
     args = parser.parse_args()
 
     # Load Model
-    model, tokenizer, device = load_inference_engine(args.checkpoint_dir, args.step, args.device)
+    model, tokenizer, device = load_inference_engine(
+        args.checkpoint_dir,
+        args.step,
+        args.device,
+        nanochat_dir=args.nanochat_dir,
+    )
     output_dir = args.output_dir
     os.makedirs(output_dir, exist_ok=True)
     output_path = f"{output_dir}/{os.path.basename(args.checkpoint_dir.rstrip('/'))}_{args.dataset}"

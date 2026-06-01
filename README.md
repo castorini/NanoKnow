@@ -28,10 +28,28 @@ We provide pre-built qrels for [nanochat](https://github.com/karpathy/nanochat) 
 | SQuAD   | 10,570    | 7,490 (71%) | 3,080 (29%) |
 | NQ-Open | 3,610     | 2,389 (66%) | 1,221 (34%) |
 
-Qrels are in `qrels/` in CSV format:
+The pre-built files are organized by dataset under `questions-and-qrels/`:
+
+```text
+questions-and-qrels/
+├── nq/
+│   ├── answers.nanoknow-nq.jsonl
+│   ├── qrels.nanoknow-nq.supported.txt
+│   ├── topics.nanoknow-nq.supported.tsv
+│   └── topics.nanoknow-nq.unsupported.tsv
+└── squad/
+    ├── answers.nanoknow-squad.jsonl
+    ├── qrels.nanoknow-squad.supported.txt
+    ├── topics.nanoknow-squad.supported.tsv
+    └── topics.nanoknow-squad.unsupported.tsv
 ```
-qid, question, answer, doc_id, answer_offset
-```
+
+Each dataset directory contains:
+
+- `topics.nanoknow-<dataset>.supported.tsv`: supported questions as `qid<TAB>question`.
+- `topics.nanoknow-<dataset>.unsupported.tsv`: unsupported questions as `qid<TAB>question`.
+- `answers.nanoknow-<dataset>.jsonl`: gold answers as one JSON object per line, e.g. `{"qid": "0", "answer": ["14 December 1972 UTC", "December 1972"]}`.
+- `qrels.nanoknow-<dataset>.supported.txt`: TREC-format qrels for supported questions, e.g. `0 Q0 shard_01177_50695 1`.
 
 ## Installation
 
@@ -43,6 +61,27 @@ For BM25 retrieval, you also need Java 11+:
 ```bash
 # Ubuntu/Debian
 sudo apt install openjdk-11-jdk
+```
+
+## FineWeb-Edu Lucene Index
+
+We release a pre-built Lucene index over [karpathy/fineweb-edu-100b-shuffle](https://huggingface.co/datasets/karpathy/fineweb-edu-100b-shuffle) (326 GB):
+
+**Download**: [LingweiGu/NanoKnow-Fineweb-Edu-Index](https://huggingface.co/datasets/LingweiGu/NanoKnow-Fineweb-Edu-Index)
+
+```bash
+huggingface-cli download LingweiGu/NanoKnow-Fineweb-Edu-Index --repo-type dataset --local-dir ./fineweb-edu-index
+```
+
+To build the index yourself using [Anserini](https://github.com/castorini/anserini):
+
+```bash
+bin/run.sh io.anserini.index.IndexCollection \
+  -collection FinewebCollection \
+  -input /path/to/corpus \
+  -index /output/directory \
+  -generator DefaultLuceneDocumentGenerator \
+  -threads 16
 ```
 
 ## Usage
@@ -73,49 +112,67 @@ python scripts/project.py \
 
 ### Evaluate a nanochat checkpoint
 
+#### Step 1: Run inference with a checkpoint
+
 ```bash
-python scripts/evaluate.py \
-    --model pankajmathur/nanochat-d34-sft-hf \
-    --projection output/squad_stage2.pkl \
-    --dataset squad \
-    --fineweb_path /path/to/fineweb-edu-100b-shuffle \
-    --output output/eval_results.pkl
+NANOCHAT_DIR="${NANOCHAT_DIR:-/path/to/nanochat}"
+CHECKPOINT_DIR="${CHECKPOINT_DIR:-/path/to/nanochat-checkpoint}"
+STEP="${STEP:-650}"
+DATASET="${DATASET:-nq}"
+QRELS_DIR="${QRELS_DIR:-questions-and-qrels/${DATASET}}"
+FINEWEB_INDEX_PATH="${FINEWEB_INDEX_PATH:-/path/to/fineweb-index}"
+OUTPUT_DIR="${OUTPUT_DIR:-output}"
+DEVICE="${DEVICE:-cuda}"
+
+python scripts/nanochat_inference.py \
+    --nanochat-dir "${NANOCHAT_DIR}" \
+    --checkpoint_dir "${CHECKPOINT_DIR}" \
+    --step "${STEP}" \
+    --dataset "${DATASET}" \
+    --qrels_dir "${QRELS_DIR}" \
+    --fineweb_index_path "${FINEWEB_INDEX_PATH}" \
+    --output_dir "${OUTPUT_DIR}" \
+    --device "${DEVICE}"
 ```
 
-To evaluate the model predictions, pass ```output/eval_results.pkl``` to the following script:
+If NanoChat is already importable in your Python environment, `--nanochat-dir` can be omitted. For repeated runs, you can set `NANOCHAT_DIR=/path/to/nanochat` instead of passing the argument each time.
+
+The output file is named from the checkpoint directory basename and dataset, for example `output/karpathy_nanochat_d32_nq`.
+
+#### Step 2: Score predictions with the evaluator
 
 ```bash
 python scripts/evaluate_model_predictions.py \
-    --input_file output/eval_results.pkl 
+    --input_file output/karpathy_nanochat_d32_nq \
+    --output_file nanochat_evaluations/karpathy_nanochat_d32_nq_scored.pkl
 ```
 
-This will produce a ```eval_results_scored.pkl``` file which produces a binary evaluation for each of
-the model's predictions for a given condition (e.g., closed-book). To get an overall accuracy score, 
-simply take the sum of the true values across all predictions, for example as follows:
+#### Step 3: Summarize evaluation scores
+
+```bash
+python scripts/get_eval_scores.py nanochat_evaluations/karpathy_nanochat_d32_nq_scored.pkl
 ```
-def clean_json_output(text):
-    if "</think>" in text:
-        text = text.split("</think>")[-1]
 
-    # 2. Strip markdown code blocks (```json ... ```) and whitespace
-    text = re.sub(r"^```(json)?|```$", "", text.strip(), flags=re.MULTILINE)
+Example output:
 
-    # 3. Return the parsed dict directly
-    try:
-        return json.loads(text)
-    except json.JSONDecodeError:
-        return {"correct": False, "explanation": "JSON_PARSE_ERROR"}
-
-# To provide an example, we set condition_name to be "supported_no_context"
-# Please replace with the condition you are interested in evaluating
-condition_name = "supported_no_context"
-predictions = data[condition_name]["results"]
-n = len(predictions)
-em_acc = sum(d['exact_match_score'] for d in predictions) / n
-judge_acc = sum(
-        clean_json_output(d['llm_judge_score'])['correct']
-        for d in predictions
-    ) / n
+```json
+{
+  "contaminated_fineweb_context": {
+    "count": 2389,
+    "exact_match_accuracy": 0.46923398911678527,
+    "llm_judge_accuracy": 0.46672247802427796
+  },
+  "contaminated_no_context": {
+    "count": 2389,
+    "exact_match_accuracy": 0.19589786521557137,
+    "llm_judge_accuracy": 0.2293846797823357
+  },
+  "non_contaminated_no_context": {
+    "count": 1221,
+    "exact_match_accuracy": 0.00819000819000819,
+    "llm_judge_accuracy": 0.04914004914004914
+  }
+}
 ```
 
 ### Analyze frequency effects
@@ -126,27 +183,6 @@ python scripts/analyze_frequency.py \
     --qrel_file qrels/squad_supported.txt \
     --dataset squad \
     --output output/frequency_analysis.json
-```
-
-## FineWeb-Edu Lucene Index
-
-We release a pre-built Lucene index over [karpathy/fineweb-edu-100b-shuffle](https://huggingface.co/datasets/karpathy/fineweb-edu-100b-shuffle) (326 GB):
-
-**Download**: [LingweiGu/NanoKnow-Fineweb-Edu-Index](https://huggingface.co/datasets/LingweiGu/NanoKnow-Fineweb-Edu-Index)
-
-```bash
-huggingface-cli download LingweiGu/NanoKnow-Fineweb-Edu-Index --repo-type dataset --local-dir ./fineweb-edu-index
-```
-
-To build the index yourself using [Anserini](https://github.com/castorini/anserini):
-
-```bash
-bin/run.sh io.anserini.index.IndexCollection \
-  -collection FinewebCollection \
-  -input /path/to/corpus \
-  -index /output/directory \
-  -generator DefaultLuceneDocumentGenerator \
-  -threads 16
 ```
 
 ## Repository Structure
