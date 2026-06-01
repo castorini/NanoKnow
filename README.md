@@ -4,6 +4,8 @@
 
 NanoKnow identifies which benchmark questions have answers in a model's training data, enabling controlled studies of parametric knowledge vs. retrieval-augmented generation (RAG).
 
+🎉 NanoKnow was accepted to SIGIR '26!
+
 Arxiv: https://arxiv.org/abs/2602.20122
 
 ## Overview
@@ -117,7 +119,7 @@ python scripts/project.py \
 ```bash
 NANOCHAT_DIR="${NANOCHAT_DIR:-/path/to/nanochat}"
 CHECKPOINT_DIR="${CHECKPOINT_DIR:-/path/to/nanochat-checkpoint}"
-STEP="${STEP:-650}"
+STEP="${STEP:?Set STEP to the checkpoint step to evaluate}"
 DATASET="${DATASET:-nq}"
 QRELS_DIR="${QRELS_DIR:-questions-and-qrels/${DATASET}}"
 FINEWEB_INDEX_PATH="${FINEWEB_INDEX_PATH:-/path/to/fineweb-index}"
@@ -135,7 +137,7 @@ python scripts/nanochat_inference.py \
     --device "${DEVICE}"
 ```
 
-If NanoChat is already importable in your Python environment, `--nanochat-dir` can be omitted. For repeated runs, you can set `NANOCHAT_DIR=/path/to/nanochat` instead of passing the argument each time.
+If nanochat is already importable in your Python environment, `--nanochat-dir` can be omitted. For repeated runs, you can set `NANOCHAT_DIR=/path/to/nanochat` instead of passing the argument each time.
 
 The output file is named from the checkpoint directory basename and dataset, for example `output/karpathy_nanochat_d32_nq`.
 
@@ -175,16 +177,6 @@ Example output:
 }
 ```
 
-### Analyze frequency effects
-
-```bash
-python scripts/analyze_frequency.py \
-    --eval_dir output/ \
-    --qrel_file qrels/squad_supported.txt \
-    --dataset squad \
-    --output output/frequency_analysis.json
-```
-
 ## Repository Structure
 
 ```
@@ -192,22 +184,30 @@ NanoKnow/
 ├── nanoknow/                  # Core library
 │   ├── retriever.py           # Stage 1: BM25 retrieval + answer matching
 │   ├── verifier.py            # Stage 2: LLM-based verification
-│   └── evaluator.py           # Nanochat evaluation utilities
+│   └── evaluator.py           # Evaluation utilities
 ├── scripts/                   # Runnable scripts
 │   ├── project.py             # Run the projection pipeline
-│   ├── evaluate.py            # Evaluate nanochat checkpoints
-│   └── analyze_frequency.py   # Frequency analysis
-├── qrels/                     # Pre-built relevance judgments
-│   ├── squad_supported.txt    # SQuAD supported (7,490 questions)
-│   ├── squad_unsupported.txt  # SQuAD unsupported (3,080 questions)
-│   ├── nq_supported.txt       # NQ supported (2,389 questions)
-│   └── nq_unsupported.txt      # NQ unsupported (1,221 questions)
+│   ├── nanochat_inference.py  # Run nanochat checkpoint inference
+│   ├── evaluate_model_predictions.py  # Score predictions
+│   └── get_eval_scores.py     # Summarize scored evaluation results
+├── questions-and-qrels/       # Pre-built benchmark questions, answers, and qrels
+│   ├── nq/
+│   │   ├── answers.nanoknow-nq.jsonl
+│   │   ├── qrels.nanoknow-nq.supported.txt
+│   │   ├── topics.nanoknow-nq.supported.tsv
+│   │   └── topics.nanoknow-nq.unsupported.tsv
+│   └── squad/
+│       ├── answers.nanoknow-squad.jsonl
+│       ├── qrels.nanoknow-squad.supported.txt
+│       ├── topics.nanoknow-squad.supported.tsv
+│       └── topics.nanoknow-squad.unsupported.tsv
+├── pyproject.toml
 ├── requirements.txt
 ├── LICENSE
 └── README.md
 ```
 
-## Nanochat Checkpoints
+## nanochat Checkpoints
 
 We evaluated eight checkpoints across three model scales:
 

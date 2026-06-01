@@ -11,7 +11,6 @@ import sys
 
 from pyserini.eval.evaluate_dpr_retrieval import has_answers, SimpleTokenizer, _normalize
 from pyserini.search.lucene import LuceneSearcher
-from custom_evals.llm_judge import LLMJudge #, clean_json_output
 
 random.seed(42)
 
@@ -23,22 +22,25 @@ def resolve_nanochat_build_model(nanochat_dir=None):
         nanochat_path = os.path.abspath(os.path.expanduser(nanochat_path))
         if not os.path.isdir(nanochat_path):
             raise FileNotFoundError(
-                f"NanoChat directory not found: {nanochat_path}. "
+                f"nanochat directory not found: {nanochat_path}. "
                 "Pass --nanochat-dir /path/to/nanochat or set NANOCHAT_DIR."
             )
-        if nanochat_path not in sys.path:
-            sys.path.insert(0, nanochat_path)
+        import_root = nanochat_path
+        if os.path.exists(os.path.join(nanochat_path, "checkpoint_manager.py")):
+            import_root = os.path.dirname(nanochat_path)
+        if import_root not in sys.path:
+            sys.path.insert(0, import_root)
 
     try:
         from nanochat.checkpoint_manager import build_model
     except ImportError as exc:
         setup_hint = (
-            "Could not import nanochat. Install NanoChat in this Python "
+            "Could not import nanochat. Install nanochat in this Python "
             "environment, pass --nanochat-dir /path/to/nanochat, or set "
             "NANOCHAT_DIR=/path/to/nanochat."
         )
         if nanochat_path:
-            setup_hint += f" Tried NanoChat directory: {nanochat_path}."
+            setup_hint += f" Tried nanochat directory: {nanochat_path}."
         raise ImportError(setup_hint) from exc
 
     return build_model
@@ -345,7 +347,7 @@ if __name__ == '__main__':
         "--nanochat-dir",
         type=str,
         default=None,
-        help="Path to a local NanoChat checkout. Can also be set with NANOCHAT_DIR.",
+        help="Path to a local nanochat checkout. Can also be set with NANOCHAT_DIR.",
     )
     args = parser.parse_args()
 
