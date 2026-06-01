@@ -177,6 +177,30 @@ Example output:
 }
 ```
 
+Replication check: on June 1, 2026, we re-ran the NQ evaluation for
+`karpathy_nanochat_d32` at step `650` on `watgpu108`. Inference completed in
+`36m56s`, scoring completed in `25m40s`, and the reproduced scores were:
+
+```json
+{
+  "contaminated_fineweb_context": {
+    "count": 2389,
+    "exact_match_accuracy": 0.4679782335705316,
+    "llm_judge_accuracy": 0.47216408539137716
+  },
+  "contaminated_no_context": {
+    "count": 2389,
+    "exact_match_accuracy": 0.19715362076182502,
+    "llm_judge_accuracy": 0.22980326496442027
+  },
+  "non_contaminated_no_context": {
+    "count": 1221,
+    "exact_match_accuracy": 0.00819000819000819,
+    "llm_judge_accuracy": 0.04504504504504504
+  }
+}
+```
+
 ## Repository Structure
 
 ```
