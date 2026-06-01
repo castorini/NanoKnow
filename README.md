@@ -178,7 +178,7 @@ Example output:
 ```
 
 Replication check: on June 1, 2026, we re-ran the NQ evaluation for
-`karpathy_nanochat_d32` at step `650` on `watgpu108`. Inference completed in
+`karpathy_nanochat_d32` at step `650`. Inference completed in
 `36m56s`, scoring completed in `25m40s`, and the reproduced scores were:
 
 ```json
