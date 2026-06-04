@@ -1,6 +1,5 @@
 import os
 import json
-import torch
 import pickle
 import argparse
 import re
@@ -13,6 +12,7 @@ from pyserini.eval.evaluate_dpr_retrieval import has_answers, SimpleTokenizer, _
 # VLLM Setup for cluster environments
 os.environ['VLLM_WORKER_MULTIPROC_METHOD'] = 'spawn'
 os.environ["VLLM_ALLOW_LONG_MAX_MODEL_LEN"] = "1"
+os.environ.setdefault("HF_HUB_OFFLINE", "1")
 
 class LLMJudge:
     def __init__(
@@ -22,7 +22,10 @@ class LLMJudge:
         context_size: int = 32000,
     ):
         self.model_name = base_model_name_or_path
-        self.tokenizer = AutoTokenizer.from_pretrained(base_model_name_or_path)
+        self.tokenizer = AutoTokenizer.from_pretrained(
+            base_model_name_or_path,
+            local_files_only=True,
+        )
         
         # VLLM Initialization
         self.model = LLM(
@@ -75,29 +78,25 @@ class LLMJudge:
             self.format_prompt(q, g, m) 
             for q, g, m in zip(questions, gold_answers, model_answers)
         ]
-        
-        print("--- DEBUG: Example Prompt ---")
-        print(prompts[0])
-        print("-----------------------------")
 
-        # Generate
         outputs = self.model.generate(prompts, self.sampling_params)
-        
-        # Extract text
         return [output.outputs[0].text for output in outputs]
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("--input_file", type=str, help="Input pickle")
     parser.add_argument("--judge_model", type=str, default="Qwen/Qwen3-14B", help="Judge model ID")
+    parser.add_argument(
+        "--output_file",
+        type=str,
+        default=os.path.join("nanochat_evaluations", "eval_results_scored.pkl"),
+        help="Path to write the scored pickle.",
+    )
     args = parser.parse_args()
 
-    
-    output_dir = 'nanochat_evaluations'
+    output_dir = os.path.dirname(args.output_file) or "."
     os.makedirs(output_dir, exist_ok=True)
-
-    base_name = os.path.basename(args.input_file).replace('.pkl', '')
-    output_filename = f'{output_dir}/{base_name}_scored.pkl'
+    output_filename = args.output_file
     print(f"We will save to: {output_filename}")
     # 1. Load Data
     print(f"Loading results from {args.input_file}...")
@@ -143,3 +142,6 @@ if __name__ == '__main__':
         pickle.dump(data, f)
 
     print(f"Saved scored results to {output_filename}")
+
+
+    
