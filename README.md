@@ -159,17 +159,17 @@ Example output:
 
 ```json
 {
-  "contaminated_fineweb_context": {
-    "count": 2389,
-    "exact_match_accuracy": 0.46923398911678527,
-    "llm_judge_accuracy": 0.46672247802427796
-  },
-  "contaminated_no_context": {
+  "supported_closed_book": {
     "count": 2389,
     "exact_match_accuracy": 0.19589786521557137,
     "llm_judge_accuracy": 0.2293846797823357
   },
-  "non_contaminated_no_context": {
+  "supported_w_fineweb_context": {
+    "count": 2389,
+    "exact_match_accuracy": 0.46923398911678527,
+    "llm_judge_accuracy": 0.46672247802427796
+  },
+  "unsupported_closed_book": {
     "count": 1221,
     "exact_match_accuracy": 0.00819000819000819,
     "llm_judge_accuracy": 0.04914004914004914
@@ -183,17 +183,17 @@ Replication check: on June 1, 2026, we re-ran the NQ evaluation for
 
 ```json
 {
-  "contaminated_fineweb_context": {
-    "count": 2389,
-    "exact_match_accuracy": 0.4679782335705316,
-    "llm_judge_accuracy": 0.47216408539137716
-  },
-  "contaminated_no_context": {
+  "supported_closed_book": {
     "count": 2389,
     "exact_match_accuracy": 0.19715362076182502,
     "llm_judge_accuracy": 0.22980326496442027
   },
-  "non_contaminated_no_context": {
+  "supported_w_fineweb_context": {
+    "count": 2389,
+    "exact_match_accuracy": 0.4679782335705316,
+    "llm_judge_accuracy": 0.47216408539137716
+  },
+  "unsupported_closed_book": {
     "count": 1221,
     "exact_match_accuracy": 0.00819000819000819,
     "llm_judge_accuracy": 0.04504504504504504

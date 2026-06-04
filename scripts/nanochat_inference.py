@@ -367,30 +367,30 @@ if __name__ == '__main__':
     print(f"FineWeb index loaded ({fineweb_searcher.num_docs:,} documents)")
     if args.dataset == "squad":
         all_results = {
-            "contaminated_no_context": {},
-            "contaminated_fineweb_context": {},
-            "contaminated_original_context": {},
-            "non_contaminated_no_context": {},
-            "non_contaminated_original_context": {},
+            "supported_closed_book": {},
+            "supported_w_fineweb_context": {},
+            "supported_w_original_context": {},
+            "unsupported_closed_book": {},
+            "unsupported_w_original_context": {},
         }
 
-        all_results["contaminated_no_context"]["results"] = run_zero_shot(
+        all_results["supported_closed_book"]["results"] = run_zero_shot(
                 model, tokenizer, unified_results, use_contaminated=True
             )
 
-        all_results["non_contaminated_no_context"]["results"] = run_zero_shot(
+        all_results["unsupported_closed_book"]["results"] = run_zero_shot(
                 model, tokenizer, unified_results, use_contaminated=False
             )
 
-        all_results["contaminated_fineweb_context"]["results"] = run_rag(
+        all_results["supported_w_fineweb_context"]["results"] = run_rag(
                 model, tokenizer, unified_results, fineweb_searcher
             )
 
-        all_results["contaminated_original_context"]["results"] = run_rag_original_context(
+        all_results["supported_w_original_context"]["results"] = run_rag_original_context(
                 model, tokenizer, unified_results, use_contaminated=True
             )
 
-        all_results["non_contaminated_original_context"]["results"] = run_rag_original_context(
+        all_results["unsupported_w_original_context"]["results"] = run_rag_original_context(
                 model, tokenizer, unified_results, use_contaminated=False
             )
 
@@ -398,20 +398,20 @@ if __name__ == '__main__':
             pickle.dump(all_results, f)
     else:
         all_results = {
-            "contaminated_no_context": {},
-            "contaminated_fineweb_context": {},
-            "non_contaminated_no_context": {}
+            "supported_closed_book": {},
+            "supported_w_fineweb_context": {},
+            "unsupported_closed_book": {}
         }
 
-        all_results["contaminated_no_context"]["results"] = run_zero_shot(
+        all_results["supported_closed_book"]["results"] = run_zero_shot(
             model, tokenizer, unified_results
         )
 
-        all_results["non_contaminated_no_context"]["results"] = run_zero_shot(
+        all_results["unsupported_closed_book"]["results"] = run_zero_shot(
                 model, tokenizer, unified_results, use_contaminated=False
             )
 
-        all_results["contaminated_fineweb_context"]["results"] = run_rag(
+        all_results["supported_w_fineweb_context"]["results"] = run_rag(
             model, tokenizer, unified_results, fineweb_searcher
         )
 
