@@ -31,7 +31,7 @@ os.environ.setdefault("HF_DATASETS_CACHE", "/tmp/hf_cache")
 def run_stage1(args):
     """Stage 1: BM25 retrieval + answer string matching."""
     from datasets import load_dataset
-    from nanoknow.retriever import BM25Retriever
+    from nanoknow.retriever import BM25Retriever, PyseriniRestRetriever
 
     # Load dataset
     if args.dataset == "nq":
@@ -51,11 +51,20 @@ def run_stage1(args):
 
     print(f"\nStage 1: Processing {len(questions)} {args.dataset.upper()} questions")
 
-    retriever = BM25Retriever(
-        index_path=args.index_path,
-        top_k=args.top_k,
-        window_size=args.window_size,
-    )
+    if args.retriever == "api":
+        retriever = PyseriniRestRetriever(
+            index_path=args.index_path,
+            api_base_url=args.api_base_url,
+            api_token_env=args.api_token_env,
+            top_k=args.top_k,
+            window_size=args.window_size,
+        )
+    else:
+        retriever = BM25Retriever(
+            index_path=args.index_path,
+            top_k=args.top_k,
+            window_size=args.window_size,
+        )
 
     results = []
     has_answer_count = 0
@@ -194,7 +203,19 @@ def main():
     parser.add_argument(
         "--index_path", type=str,
         default="/home/tardis/shared/llms/hub/datasets--karpathy--fineweb-edu-100b-shuffle/index",
-        help="Path to the Lucene index",
+        help="Path to the Lucene index, or REST API index name when --retriever api",
+    )
+    parser.add_argument(
+        "--retriever", type=str, choices=["local", "api"], default="local",
+        help="Retriever backend for stage 1",
+    )
+    parser.add_argument(
+        "--api_base_url", type=str, default="http://99.251.12.72:8081",
+        help="Pyserini REST API base URL",
+    )
+    parser.add_argument(
+        "--api_token_env", type=str, default="PYSERINI_API_TOKEN",
+        help="Environment variable containing the Pyserini REST API token",
     )
     parser.add_argument("--top_k", type=int, default=100)
     parser.add_argument("--window_size", type=int, default=256)

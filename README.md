@@ -98,6 +98,15 @@ python scripts/project.py \
     --index_path /path/to/lucene-index \
     --output output/squad_stage1.pkl
 
+# Stage 1 using the Pyserini REST API, e.g. ClimbMix
+export PYSERINI_API_TOKEN="..."
+python scripts/project.py \
+    --dataset squad \
+    --stage 1 \
+    --retriever api \
+    --index_path climbmix-400b \
+    --output output/squad_climbmix_stage1.pkl
+
 # Stage 2: LLM verification (requires GPU)
 python scripts/project.py \
     --stage 2 \

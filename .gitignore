@@ -10,6 +10,7 @@ build/
 .venv/
 venv/
 env/
+.deps/
 
 # Experiment outputs
 output/
@@ -21,6 +22,8 @@ slurm_logs/
 # Local scripts
 evaluate_nanochat.sh
 run_nanochat_inference.sh
+.env.local
+.curlrc.pyserini-rest
 
 # IDE
 .vscode/
