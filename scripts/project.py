@@ -187,7 +187,25 @@ def run_stage2(args, stage1_data=None):
         r for r in stage1_data["results"]
         if r.get("has_answer") and r.get("matching_docs")
     ]
+    all_to_verify_count = len(to_verify)
+    if args.stage2_shard_count < 1:
+        raise ValueError("--stage2_shard_count must be at least 1")
+    if args.stage2_shard_id < 0 or args.stage2_shard_id >= args.stage2_shard_count:
+        raise ValueError("--stage2_shard_id must be in [0, stage2_shard_count)")
+    is_sharded = args.stage2_shard_count > 1
+    if is_sharded:
+        to_verify = [
+            r for i, r in enumerate(to_verify)
+            if i % args.stage2_shard_count == args.stage2_shard_id
+        ]
+
     print(f"\nStage 2: Verifying {len(to_verify)} has-answer questions with LLM")
+    if is_sharded:
+        print(
+            "  Shard: "
+            f"{args.stage2_shard_id}/{args.stage2_shard_count} "
+            f"({all_to_verify_count} total has-answer questions)"
+        )
 
     total = len(stage1_data["results"])
     has_answer = stage1_data["has_answer"]
@@ -205,6 +223,8 @@ def run_stage2(args, stage1_data=None):
             "model": args.model,
             "total": total,
             "has_answer": has_answer,
+            "stage2_shard_count": args.stage2_shard_count,
+            "stage2_shard_id": args.stage2_shard_id,
         }
         actual = {k: checkpoint_data.get(k) for k in expected}
         if actual != expected:
@@ -227,6 +247,9 @@ def run_stage2(args, stage1_data=None):
             "total": total,
             "has_answer": has_answer,
             "has_answer_rate": has_answer / total,
+            "stage2_shard_count": args.stage2_shard_count,
+            "stage2_shard_id": args.stage2_shard_id,
+            "all_to_verify": all_to_verify_count,
             "to_verify": len(to_verify),
             "completed": len(verified_by_id),
             "llm_verified": verified_count,
@@ -265,6 +288,40 @@ def run_stage2(args, stage1_data=None):
         verified_by_id[result["id"]] = result
         save_checkpoint()
 
+    verified_count = sum(1 for r in verified_results if r.get("verified"))
+    if is_sharded:
+        print(f"\nStage 2 shard complete:")
+        print(
+            "  Completed: "
+            f"{len(verified_results)}/{len(to_verify)} shard has-answer questions"
+        )
+        print(f"  LLM verified: {verified_count}/{total} ({verified_count/total:.1%})")
+
+        output_data = {
+            "dataset": stage1_data["dataset"],
+            "split": stage1_data["split"],
+            "model": args.model,
+            "total": total,
+            "has_answer": has_answer,
+            "has_answer_rate": has_answer / total,
+            "stage2_shard_count": args.stage2_shard_count,
+            "stage2_shard_id": args.stage2_shard_id,
+            "all_to_verify": all_to_verify_count,
+            "to_verify": len(to_verify),
+            "completed": len(verified_results),
+            "llm_verified": verified_count,
+            "verification_rate": verified_count / total,
+            "results": verified_results,
+        }
+
+        with open(args.output, "wb") as f:
+            pickle.dump(output_data, f)
+        if os.path.exists(partial_path):
+            os.remove(partial_path)
+        print(f"Saved shard to {args.output}")
+
+        return output_data
+
     # Merge with non-has-answer results
     full_results = []
 
@@ -280,7 +337,6 @@ def run_stage2(args, stage1_data=None):
                 "original_answers": r["original_answers"],
             })
 
-    verified_count = sum(1 for r in verified_results if r.get("verified"))
     print(f"\nStage 2 complete:")
     print(f"  String match:  {has_answer}/{total} ({has_answer/total:.1%})")
     print(f"  LLM verified:  {verified_count}/{total} ({verified_count/total:.1%})")
@@ -347,6 +403,18 @@ def main():
     )
     parser.add_argument("--model", type=str, default="Qwen/Qwen3-8B")
     parser.add_argument("--limit", type=int, default=None)
+    parser.add_argument(
+        "--stage2_shard_count",
+        type=int,
+        default=1,
+        help="Number of virtual shards for Stage 2 verification",
+    )
+    parser.add_argument(
+        "--stage2_shard_id",
+        type=int,
+        default=0,
+        help="Shard id to run for Stage 2 verification (0-indexed)",
+    )
 
     args = parser.parse_args()
 
