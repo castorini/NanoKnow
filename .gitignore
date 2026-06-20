@@ -22,6 +22,7 @@ slurm_logs/
 # Local scripts
 evaluate_nanochat.sh
 run_nanochat_inference.sh
+run_stage2_*.sh
 .env.local
 .curlrc.pyserini-rest
 

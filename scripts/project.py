@@ -189,12 +189,64 @@ def run_stage2(args, stage1_data=None):
     ]
     print(f"\nStage 2: Verifying {len(to_verify)} has-answer questions with LLM")
 
-    verifier = LLMVerifier(model_name=args.model)
-
+    total = len(stage1_data["results"])
+    has_answer = stage1_data["has_answer"]
+    partial_path = f"{args.output}.partial"
     verified_results = []
-    verified_count = 0
+    verified_by_id = {}
 
-    for r in tqdm(to_verify, desc="Stage 2"):
+    if os.path.exists(partial_path):
+        print(f"Loading Stage 2 checkpoint from {partial_path}...")
+        with open(partial_path, "rb") as f:
+            checkpoint_data = pickle.load(f)
+        expected = {
+            "dataset": stage1_data["dataset"],
+            "split": stage1_data["split"],
+            "model": args.model,
+            "total": total,
+            "has_answer": has_answer,
+        }
+        actual = {k: checkpoint_data.get(k) for k in expected}
+        if actual != expected:
+            raise ValueError(
+                f"Checkpoint metadata mismatch: expected {expected}, got {actual}"
+            )
+        verified_results = checkpoint_data.get("verified_results", [])
+        verified_by_id = {r["id"]: r for r in verified_results}
+        print(
+            "Resuming Stage 2: "
+            f"{len(verified_by_id)}/{len(to_verify)} has-answer questions complete"
+        )
+
+    def save_checkpoint():
+        verified_count = sum(1 for r in verified_results if r.get("verified"))
+        checkpoint_data = {
+            "dataset": stage1_data["dataset"],
+            "split": stage1_data["split"],
+            "model": args.model,
+            "total": total,
+            "has_answer": has_answer,
+            "has_answer_rate": has_answer / total,
+            "to_verify": len(to_verify),
+            "completed": len(verified_by_id),
+            "llm_verified": verified_count,
+            "verification_rate": verified_count / total,
+            "verified_results": verified_results,
+        }
+        tmp_path = f"{partial_path}.tmp"
+        with open(tmp_path, "wb") as f:
+            pickle.dump(checkpoint_data, f)
+        os.replace(tmp_path, partial_path)
+
+    verifier = LLMVerifier(model_name=args.model)
+    remaining = [r for r in to_verify if r["id"] not in verified_by_id]
+
+    for r in tqdm(
+        remaining,
+        total=len(to_verify),
+        initial=len(verified_by_id),
+        desc="Stage 2",
+    ):
         verification = verifier.verify(
             r["original_question"],
             r["original_answers"],
@@ -210,12 +262,10 @@ def run_stage2(args, stage1_data=None):
             **verification,
         }
         verified_results.append(result)
-
-        if verification.get("verified"):
-            verified_count += 1
+        verified_by_id[result["id"]] = result
+        save_checkpoint()
 
     # Merge with non-has-answer results
-    verified_by_id = {r["id"]: r for r in verified_results}
     full_results = []
 
     for r in stage1_data["results"]:
@@ -230,8 +280,7 @@ def run_stage2(args, stage1_data=None):
                 "original_answers": r["original_answers"],
             })
 
-    total = len(full_results)
-    has_answer = stage1_data["has_answer"]
+    verified_count = sum(1 for r in verified_results if r.get("verified"))
     print(f"\nStage 2 complete:")
     print(f"  String match:  {has_answer}/{total} ({has_answer/total:.1%})")
     print(f"  LLM verified:  {verified_count}/{total} ({verified_count/total:.1%})")
@@ -251,6 +300,8 @@ def run_stage2(args, stage1_data=None):
 
     with open(args.output, "wb") as f:
         pickle.dump(output_data, f)
+    if os.path.exists(partial_path):
+        os.remove(partial_path)
     print(f"Saved to {args.output}")
 
     return output_data

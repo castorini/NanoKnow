@@ -118,7 +118,7 @@ class LLMVerifier:
             Dict with 'verified' bool and, if True, the verified doc metadata.
         """
         for i, doc in enumerate(matching_docs):
-            text = doc.get("full_text", doc.get("context_snippet", ""))
+            text = doc.get("context_snippet", "")
             prompt = self._format_prompt(question, answers, text)
             response = self._generate(prompt)
 
