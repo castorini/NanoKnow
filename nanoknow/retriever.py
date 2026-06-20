@@ -7,6 +7,9 @@ a Lucene index and check which ones contain the answer string.
 
 import json
 import os
+import random
+import time
+from http.client import IncompleteRead
 from urllib.error import HTTPError, URLError
 from urllib.parse import quote, urlencode
 from urllib.request import Request, urlopen
@@ -173,14 +176,38 @@ class PyseriniRestRetriever:
         url = f"{self.api_base_url}{path}{query}"
         request = Request(url, headers={"Authorization": f"Bearer {self.token}"})
 
-        try:
-            with urlopen(request, timeout=60) as response:
-                return json.loads(response.read().decode("utf-8"))
-        except HTTPError as e:
-            detail = e.read().decode("utf-8", errors="replace")
-            raise RuntimeError(f"Pyserini REST API request failed ({e.code}): {detail}") from e
-        except URLError as e:
-            raise RuntimeError(f"Pyserini REST API request failed: {e.reason}") from e
+        max_retries = 120
+
+        for attempt in range(max_retries):
+            try:
+                with urlopen(request, timeout=60) as response:
+                    return json.loads(response.read().decode("utf-8"))
+            except HTTPError as e:
+                detail = e.read().decode("utf-8", errors="replace")
+                if e.code not in (429, 500, 502, 503, 504) or attempt == max_retries - 1:
+                    raise RuntimeError(
+                        f"Pyserini REST API request failed ({e.code}): {detail}"
+                    ) from e
+                retry_after = e.headers.get("Retry-After")
+                retry_delay = float(retry_after) if retry_after else 0
+                delay = max(retry_delay, min(300, 2 ** min(attempt, 8)))
+                print(
+                    f"Pyserini REST API returned {e.code}; retrying in "
+                    f"{delay:.1f}s (attempt {attempt + 1}/{max_retries})"
+                )
+                time.sleep(delay + random.uniform(0, 1))
+            except (URLError, IncompleteRead, TimeoutError) as e:
+                if attempt == max_retries - 1:
+                    reason = getattr(e, "reason", str(e))
+                    raise RuntimeError(f"Pyserini REST API request failed: {reason}") from e
+                delay = min(300, 2 ** min(attempt, 8))
+                print(
+                    "Pyserini REST API request failed; retrying in "
+                    f"{delay:.1f}s (attempt {attempt + 1}/{max_retries})"
+                )
+                time.sleep(delay + random.uniform(0, 1))
+
+        raise RuntimeError("Pyserini REST API request failed after retries")
 
     @staticmethod
     def _doc_to_text(doc) -> Optional[str]:

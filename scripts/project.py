@@ -28,6 +28,13 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 os.environ.setdefault("HF_DATASETS_CACHE", "/tmp/hf_cache")
 
 
+def strip_full_text(result):
+    """Drop bulky document text while preserving Stage 1 match metadata."""
+    for doc in result.get("matching_docs", []):
+        doc.pop("full_text", None)
+    return result
+
+
 def run_stage1(args):
     """Stage 1: BM25 retrieval + answer string matching."""
     from datasets import load_dataset
@@ -68,19 +75,80 @@ def run_stage1(args):
 
     results = []
     has_answer_count = 0
+    partial_path = f"{args.output}.partial"
+
+    def save_checkpoint():
+        completed = len(results)
+        checkpoint_data = {
+            "dataset": args.dataset,
+            "split": "validation",
+            "stage": 1,
+            "top_k": args.top_k,
+            "window_size": args.window_size,
+            "total": len(questions),
+            "completed": completed,
+            "has_answer": has_answer_count,
+            "has_answer_rate": has_answer_count / completed if completed else 0,
+            "results": results,
+        }
+        tmp_path = f"{partial_path}.tmp"
+        with open(tmp_path, "wb") as f:
+            pickle.dump(checkpoint_data, f)
+        os.replace(tmp_path, partial_path)
+
+    if os.path.exists(partial_path):
+        print(f"Loading Stage 1 checkpoint from {partial_path}...")
+        with open(partial_path, "rb") as f:
+            checkpoint_data = pickle.load(f)
+        expected = {
+            "dataset": args.dataset,
+            "split": "validation",
+            "top_k": args.top_k,
+            "window_size": args.window_size,
+        }
+        actual = {k: checkpoint_data.get(k) for k in expected}
+        if actual != expected:
+            raise ValueError(
+                f"Checkpoint metadata mismatch: expected {expected}, got {actual}"
+            )
+        results = checkpoint_data["results"]
+        if len(results) > len(questions):
+            raise ValueError(
+                f"Checkpoint has {len(results)} results for {len(questions)} questions"
+            )
+        if not args.store_full_text:
+            for result in results:
+                strip_full_text(result)
+        has_answer_count = sum(1 for r in results if r.get("has_answer"))
+        print(f"Resuming Stage 1: {len(results)}/{len(questions)} questions complete")
+        if not args.store_full_text:
+            save_checkpoint()
+
+    start = len(results)
 
     for i, (q, ans) in enumerate(
-        tqdm(zip(questions, answers), total=len(questions), desc="Stage 1")
+        tqdm(
+            zip(questions[start:], answers[start:]),
+            total=len(questions),
+            initial=start,
+            desc="Stage 1",
+        ),
+        start=start,
     ):
         if isinstance(ans, str):
             ans = [ans]
 
         result = retriever.search(q, ans)
+        if not args.store_full_text:
+            strip_full_text(result)
         result["id"] = i
         results.append(result)
 
         if result["has_answer"]:
             has_answer_count += 1
+
+        if len(results) % 25 == 0:
+            save_checkpoint()
 
     total = len(results)
     print(f"\nStage 1 complete: {has_answer_count}/{total} ({has_answer_count/total:.1%}) have answer matches")
@@ -99,6 +167,8 @@ def run_stage1(args):
 
     with open(args.output, "wb") as f:
         pickle.dump(output_data, f)
+    if os.path.exists(partial_path):
+        os.remove(partial_path)
     print(f"Saved to {args.output}")
 
     return output_data
@@ -219,6 +289,11 @@ def main():
     )
     parser.add_argument("--top_k", type=int, default=100)
     parser.add_argument("--window_size", type=int, default=256)
+    parser.add_argument(
+        "--store_full_text",
+        action="store_true",
+        help="Store full matched document text in Stage 1 outputs",
+    )
     parser.add_argument("--model", type=str, default="Qwen/Qwen3-8B")
     parser.add_argument("--limit", type=int, default=None)
 
