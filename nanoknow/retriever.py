@@ -19,7 +19,7 @@ from typing import Dict, List, Optional
 def extract_context(
     full_text: str,
     answers: List[str],
-    window_size: int = 256,
+    window_size: int = 512,
 ) -> Optional[Dict]:
     """Extract a context window around the first answer match in the text.
 
@@ -67,7 +67,7 @@ class BM25Retriever:
         self,
         index_path: str,
         top_k: int = 100,
-        window_size: int = 256,
+        window_size: int = 512,
     ):
         self.top_k = top_k
         self.window_size = window_size
@@ -158,7 +158,7 @@ class PyseriniRestRetriever:
         api_base_url: str,
         api_token_env: str = "PYSERINI_API_TOKEN",
         top_k: int = 100,
-        window_size: int = 256,
+        window_size: int = 512,
     ):
         self.index_path = index_path
         self.api_base_url = api_base_url.rstrip("/")

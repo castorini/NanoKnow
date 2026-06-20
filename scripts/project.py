@@ -339,7 +339,7 @@ def main():
         help="Environment variable containing the Pyserini REST API token",
     )
     parser.add_argument("--top_k", type=int, default=100)
-    parser.add_argument("--window_size", type=int, default=256)
+    parser.add_argument("--window_size", type=int, default=512)
     parser.add_argument(
         "--store_full_text",
         action="store_true",
