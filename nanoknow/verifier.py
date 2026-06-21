@@ -11,43 +11,42 @@ from typing import Dict, List
 class LLMVerifier:
     """Verify whether a document genuinely answers a question using an LLM."""
 
-    def __init__(self, model_name: str = "Qwen/Qwen3-8B"):
-        import torch
-        from transformers import AutoModelForCausalLM, AutoTokenizer
+    def __init__(
+        self,
+        model_name: str = "Qwen/Qwen3-8B",
+        max_model_len: int = 4096,
+        gpu_memory_utilization: float = 0.9,
+    ):
+        import os
+
+        os.environ.setdefault("VLLM_WORKER_MULTIPROC_METHOD", "spawn")
+        os.environ.setdefault("VLLM_ALLOW_LONG_MAX_MODEL_LEN", "1")
+
+        from transformers import AutoTokenizer
+        from vllm import LLM, SamplingParams
 
         print(f"Loading LLM verifier: {model_name}")
         self.tokenizer = AutoTokenizer.from_pretrained(model_name)
-        self.model = AutoModelForCausalLM.from_pretrained(
-            model_name,
-            torch_dtype=torch.bfloat16,
-            device_map="auto",
+        self.model = LLM(
+            model=model_name,
+            tensor_parallel_size=1,
             trust_remote_code=True,
+            max_model_len=max_model_len,
+            dtype="bfloat16",
+            gpu_memory_utilization=gpu_memory_utilization,
+            enforce_eager=True,
         )
-        self.model.eval()
+        self.sampling_params = SamplingParams(
+            temperature=0,
+            max_tokens=512,
+            skip_special_tokens=True,
+        )
         self.model_name = model_name
 
     def _format_prompt(
         self, question: str, answers: List[str], doc_text: str
     ) -> str:
         answers_str = ", ".join(f'"{a}"' for a in answers[:5])
-
-        # Smart truncation: keep passage around the answer
-        if len(doc_text) > 2500:
-            doc_lower = doc_text.lower()
-            answer_pos, matched = -1, None
-            for ans in answers:
-                pos = doc_lower.find(ans.lower())
-                if pos != -1:
-                    answer_pos, matched = pos, ans
-                    break
-
-            if answer_pos > 1200 and matched:
-                head = doc_text[:800]
-                start = max(0, answer_pos - 400)
-                end = min(len(doc_text), answer_pos + len(matched) + 400)
-                doc_text = head + "\n[...]\n" + doc_text[start:end] + "..."
-            else:
-                doc_text = doc_text[:2500] + "..."
 
         chat = [
             {
@@ -84,27 +83,11 @@ class LLMVerifier:
             )
 
     def _generate(self, prompt: str) -> str:
-        import torch
+        return self._generate_many([prompt])[0]
 
-        inputs = self.tokenizer(
-            prompt, return_tensors="pt", truncation=True, max_length=4096
-        )
-        input_ids = inputs["input_ids"].to(self.model.device)
-        attention_mask = inputs["attention_mask"].to(self.model.device)
-
-        with torch.no_grad():
-            outputs = self.model.generate(
-                input_ids,
-                attention_mask=attention_mask,
-                max_new_tokens=100,
-                do_sample=False,
-                pad_token_id=self.tokenizer.eos_token_id,
-            )
-
-        response = self.tokenizer.decode(
-            outputs[0][input_ids.shape[1] :], skip_special_tokens=True
-        )
-        return response.strip()
+    def _generate_many(self, prompts: List[str]) -> List[str]:
+        outputs = self.model.generate(prompts, self.sampling_params)
+        return [output.outputs[0].text.strip() for output in outputs]
 
     def _verified_doc_result(self, doc: Dict, doc_index: int, response: str) -> Dict:
         return {
@@ -132,14 +115,31 @@ class LLMVerifier:
             Dict with 'verified' bool and verified doc metadata. With early_stop,
             returns after the first confirmed match. Otherwise verifies all docs.
         """
+        if not matching_docs:
+            return {
+                "verified": False,
+                "docs_checked": 0,
+                "verified_docs": [],
+            }
+
         verified_docs = []
-        docs_checked = 0
+        prompts = [
+            self._format_prompt(question, answers, doc.get("context_snippet", ""))
+            for doc in matching_docs
+        ]
+
+        if early_stop:
+            responses = []
+            response_iter = None
+        else:
+            responses = self._generate_many(prompts)
+            response_iter = iter(responses)
 
         for i, doc in enumerate(matching_docs):
-            docs_checked = i + 1
-            text = doc.get("context_snippet", "")
-            prompt = self._format_prompt(question, answers, text)
-            response = self._generate(prompt)
+            if early_stop:
+                response = self._generate(prompts[i])
+            else:
+                response = next(response_iter)
 
             # Strip thinking tags if present
             if "</think>" in response:
@@ -153,7 +153,7 @@ class LLMVerifier:
                 if early_stop:
                     return {
                         "verified": True,
-                        "docs_checked": docs_checked,
+                        "docs_checked": i + 1,
                         "verified_docs": verified_docs,
                         **verified_doc,
                     }
@@ -161,13 +161,13 @@ class LLMVerifier:
         if verified_docs:
             return {
                 "verified": True,
-                "docs_checked": docs_checked,
+                "docs_checked": len(matching_docs),
                 "verified_docs": verified_docs,
                 **verified_docs[0],
             }
 
         return {
             "verified": False,
-            "docs_checked": docs_checked,
+            "docs_checked": len(matching_docs),
             "verified_docs": [],
         }

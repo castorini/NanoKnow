@@ -3,6 +3,7 @@ pyserini>=0.25.0
 datasets>=3.0.0
 torch>=2.0.0
 transformers>=4.40.0
+vllm>=0.8.0
 
 # Evaluation
 duckdb>=1.0.0
