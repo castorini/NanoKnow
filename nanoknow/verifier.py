@@ -5,7 +5,7 @@ Uses an LLM judge to filter out coincidental matches—e.g., "Paris" appearing
 in a passage about Paris, Texas rather than Paris, France.
 """
 
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 
 class LLMVerifier:
@@ -14,7 +14,7 @@ class LLMVerifier:
     def __init__(
         self,
         model_name: str = "Qwen/Qwen3-8B",
-        max_model_len: int = 4096,
+        max_model_len: Optional[int] = None,
         gpu_memory_utilization: float = 0.9,
     ):
         import os
@@ -27,15 +27,17 @@ class LLMVerifier:
 
         print(f"Loading LLM verifier: {model_name}")
         self.tokenizer = AutoTokenizer.from_pretrained(model_name)
-        self.model = LLM(
-            model=model_name,
-            tensor_parallel_size=1,
-            trust_remote_code=True,
-            max_model_len=max_model_len,
-            dtype="bfloat16",
-            gpu_memory_utilization=gpu_memory_utilization,
-            enforce_eager=True,
-        )
+        llm_kwargs = {
+            "model": model_name,
+            "tensor_parallel_size": 1,
+            "trust_remote_code": True,
+            "dtype": "bfloat16",
+            "gpu_memory_utilization": gpu_memory_utilization,
+            "enforce_eager": True,
+        }
+        if max_model_len is not None:
+            llm_kwargs["max_model_len"] = max_model_len
+        self.model = LLM(**llm_kwargs)
         self.sampling_params = SamplingParams(
             temperature=0,
             max_tokens=512,
