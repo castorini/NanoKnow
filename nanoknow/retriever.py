@@ -19,14 +19,15 @@ from typing import Dict, List, Optional
 def extract_context(
     full_text: str,
     answers: List[str],
-    window_size: int = 512,
+    window_size: int = 200,
 ) -> Optional[Dict]:
     """Extract a context window around the first answer match in the text.
 
     Args:
         full_text: The full document text.
         answers: List of gold answer strings to search for.
-        window_size: Total number of words to include in the context window.
+        window_size: Total number of words to include in the context window,
+            approximately half before and half after the first answer match.
 
     Returns:
         Dict with context, matched_answer, match_position, total_words,
@@ -67,7 +68,7 @@ class BM25Retriever:
         self,
         index_path: str,
         top_k: int = 100,
-        window_size: int = 512,
+        window_size: int = 200,
     ):
         self.top_k = top_k
         self.window_size = window_size
@@ -158,7 +159,7 @@ class PyseriniRestRetriever:
         api_base_url: str,
         api_token_env: str = "PYSERINI_API_TOKEN",
         top_k: int = 100,
-        window_size: int = 512,
+        window_size: int = 200,
     ):
         self.index_path = index_path
         self.api_base_url = api_base_url.rstrip("/")

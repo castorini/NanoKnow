@@ -106,18 +106,37 @@ class LLMVerifier:
         )
         return response.strip()
 
+    def _verified_doc_result(self, doc: Dict, doc_index: int, response: str) -> Dict:
+        return {
+            "verified_at_doc": doc_index + 1,
+            "doc_id": doc["doc_id"],
+            "matched_answer": doc["matched_answer"],
+            "match_position": doc["match_position"],
+            "total_words": doc["total_words"],
+            "context_snippet": doc["context_snippet"],
+            "reason": response.strip(),
+        }
+
     def verify(
-        self, question: str, answers: List[str], matching_docs: List[Dict]
+        self,
+        question: str,
+        answers: List[str],
+        matching_docs: List[Dict],
+        early_stop: bool = True,
     ) -> Dict:
         """Verify has-answer documents with the LLM judge.
 
-        Iterates through matching_docs and returns on the first confirmed
-        match (early stopping).
+        Iterates through matching_docs and verifies documents with an LLM judge.
 
         Returns:
-            Dict with 'verified' bool and, if True, the verified doc metadata.
+            Dict with 'verified' bool and verified doc metadata. With early_stop,
+            returns after the first confirmed match. Otherwise verifies all docs.
         """
+        verified_docs = []
+        docs_checked = 0
+
         for i, doc in enumerate(matching_docs):
+            docs_checked = i + 1
             text = doc.get("context_snippet", "")
             prompt = self._format_prompt(question, answers, text)
             response = self._generate(prompt)
@@ -128,15 +147,27 @@ class LLMVerifier:
 
             clean = response.strip().upper()
             if clean.startswith("TRUE") or clean.startswith("YES"):
-                return {
-                    "verified": True,
-                    "verified_at_doc": i + 1,
-                    "doc_id": doc["doc_id"],
-                    "matched_answer": doc["matched_answer"],
-                    "match_position": doc["match_position"],
-                    "total_words": doc["total_words"],
-                    "context_snippet": doc["context_snippet"][:500],
-                    "reason": response.strip()[:200],
-                }
+                verified_doc = self._verified_doc_result(doc, i, response)
+                verified_docs.append(verified_doc)
 
-        return {"verified": False, "docs_checked": len(matching_docs)}
+                if early_stop:
+                    return {
+                        "verified": True,
+                        "docs_checked": docs_checked,
+                        "verified_docs": verified_docs,
+                        **verified_doc,
+                    }
+
+        if verified_docs:
+            return {
+                "verified": True,
+                "docs_checked": docs_checked,
+                "verified_docs": verified_docs,
+                **verified_docs[0],
+            }
+
+        return {
+            "verified": False,
+            "docs_checked": docs_checked,
+            "verified_docs": [],
+        }

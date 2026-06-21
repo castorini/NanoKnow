@@ -225,8 +225,16 @@ def run_stage2(args, stage1_data=None):
             "has_answer": has_answer,
             "stage2_shard_count": args.stage2_shard_count,
             "stage2_shard_id": args.stage2_shard_id,
+            "stage2_early_stop": args.stage2_early_stop,
         }
-        actual = {k: checkpoint_data.get(k) for k in expected}
+        actual = {
+            k: (
+                checkpoint_data.get(k, True)
+                if k == "stage2_early_stop"
+                else checkpoint_data.get(k)
+            )
+            for k in expected
+        }
         if actual != expected:
             raise ValueError(
                 f"Checkpoint metadata mismatch: expected {expected}, got {actual}"
@@ -249,6 +257,7 @@ def run_stage2(args, stage1_data=None):
             "has_answer_rate": has_answer / total,
             "stage2_shard_count": args.stage2_shard_count,
             "stage2_shard_id": args.stage2_shard_id,
+            "stage2_early_stop": args.stage2_early_stop,
             "all_to_verify": all_to_verify_count,
             "to_verify": len(to_verify),
             "completed": len(verified_by_id),
@@ -274,6 +283,7 @@ def run_stage2(args, stage1_data=None):
             r["original_question"],
             r["original_answers"],
             r["matching_docs"],
+            early_stop=args.stage2_early_stop,
         )
 
         result = {
@@ -306,6 +316,7 @@ def run_stage2(args, stage1_data=None):
             "has_answer_rate": has_answer / total,
             "stage2_shard_count": args.stage2_shard_count,
             "stage2_shard_id": args.stage2_shard_id,
+            "stage2_early_stop": args.stage2_early_stop,
             "all_to_verify": all_to_verify_count,
             "to_verify": len(to_verify),
             "completed": len(verified_results),
@@ -351,6 +362,7 @@ def run_stage2(args, stage1_data=None):
         "llm_verified": verified_count,
         "has_answer_rate": has_answer / total,
         "verification_rate": verified_count / total,
+        "stage2_early_stop": args.stage2_early_stop,
         "results": full_results,
     }
 
@@ -395,7 +407,7 @@ def main():
         help="Environment variable containing the Pyserini REST API token",
     )
     parser.add_argument("--top_k", type=int, default=100)
-    parser.add_argument("--window_size", type=int, default=512)
+    parser.add_argument("--window_size", type=int, default=200)
     parser.add_argument(
         "--store_full_text",
         action="store_true",
@@ -414,6 +426,16 @@ def main():
         type=int,
         default=0,
         help="Shard id to run for Stage 2 verification (0-indexed)",
+    )
+    parser.add_argument(
+        "--stage2_early_stop",
+        "--stage2-early-stop",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help=(
+            "Stop Stage 2 after the first verified doc per question. "
+            "Use --no-stage2_early_stop to verify every matched doc."
+        ),
     )
 
     args = parser.parse_args()
