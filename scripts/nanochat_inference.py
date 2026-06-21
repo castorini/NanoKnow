@@ -54,10 +54,10 @@ def load_text_row(docid, searcher):
 
 
 def load_unified_results_from_qrels(qrels_dir: str, dataset: str) -> list[dict]:
-    qrels_path = os.path.join(qrels_dir, f"qrels.nanoknow-{dataset}.supported.txt")
+    qrels_path = os.path.join(qrels_dir, f"qrels.nanoknow-{dataset}-fineweb.supported.txt")
     answers_path = os.path.join(qrels_dir, f"answers.nanoknow-{dataset}.jsonl")
-    supported_topics_path = os.path.join(qrels_dir, f"topics.nanoknow-{dataset}.supported.tsv")
-    unsupported_topics_path = os.path.join(qrels_dir, f"topics.nanoknow-{dataset}.unsupported.tsv")
+    supported_topics_path = os.path.join(qrels_dir, f"topics.nanoknow-{dataset}-fineweb.supported.tsv")
+    unsupported_topics_path = os.path.join(qrels_dir, f"topics.nanoknow-{dataset}-fineweb.unsupported.tsv")
 
     for required_path in [qrels_path, answers_path, supported_topics_path, unsupported_topics_path]:
         if not os.path.exists(required_path):

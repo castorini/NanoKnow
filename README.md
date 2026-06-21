@@ -36,22 +36,22 @@ The pre-built files are organized by dataset under `questions-and-qrels/`:
 questions-and-qrels/
 ├── nq/
 │   ├── answers.nanoknow-nq.jsonl
-│   ├── qrels.nanoknow-nq.supported.txt
-│   ├── topics.nanoknow-nq.supported.tsv
-│   └── topics.nanoknow-nq.unsupported.tsv
+│   ├── qrels.nanoknow-nq-fineweb.supported.txt
+│   ├── topics.nanoknow-nq-fineweb.supported.tsv
+│   └── topics.nanoknow-nq-fineweb.unsupported.tsv
 └── squad/
     ├── answers.nanoknow-squad.jsonl
-    ├── qrels.nanoknow-squad.supported.txt
-    ├── topics.nanoknow-squad.supported.tsv
-    └── topics.nanoknow-squad.unsupported.tsv
+    ├── qrels.nanoknow-squad-fineweb.supported.txt
+    ├── topics.nanoknow-squad-fineweb.supported.tsv
+    └── topics.nanoknow-squad-fineweb.unsupported.tsv
 ```
 
 Each dataset directory contains:
 
-- `topics.nanoknow-<dataset>.supported.tsv`: supported questions as `qid<TAB>question`.
-- `topics.nanoknow-<dataset>.unsupported.tsv`: unsupported questions as `qid<TAB>question`.
+- `topics.nanoknow-<dataset>-fineweb.supported.tsv`: FineWeb-supported questions as `qid<TAB>question`.
+- `topics.nanoknow-<dataset>-fineweb.unsupported.tsv`: FineWeb-unsupported questions as `qid<TAB>question`.
 - `answers.nanoknow-<dataset>.jsonl`: gold answers as one JSON object per line, e.g. `{"qid": "0", "answer": ["14 December 1972 UTC", "December 1972"]}`.
-- `qrels.nanoknow-<dataset>.supported.txt`: TREC-format qrels for supported questions, e.g. `0 Q0 shard_01177_50695 1`.
+- `qrels.nanoknow-<dataset>-fineweb.supported.txt`: TREC-format FineWeb qrels for supported questions, e.g. `0 Q0 shard_01177_50695 1`.
 
 ## Installation
 
@@ -226,14 +226,14 @@ NanoKnow/
 ├── questions-and-qrels/       # Pre-built benchmark questions, answers, and qrels
 │   ├── nq/
 │   │   ├── answers.nanoknow-nq.jsonl
-│   │   ├── qrels.nanoknow-nq.supported.txt
-│   │   ├── topics.nanoknow-nq.supported.tsv
-│   │   └── topics.nanoknow-nq.unsupported.tsv
+│   │   ├── qrels.nanoknow-nq-fineweb.supported.txt
+│   │   ├── topics.nanoknow-nq-fineweb.supported.tsv
+│   │   └── topics.nanoknow-nq-fineweb.unsupported.tsv
 │   └── squad/
 │       ├── answers.nanoknow-squad.jsonl
-│       ├── qrels.nanoknow-squad.supported.txt
-│       ├── topics.nanoknow-squad.supported.tsv
-│       └── topics.nanoknow-squad.unsupported.tsv
+│       ├── qrels.nanoknow-squad-fineweb.supported.txt
+│       ├── topics.nanoknow-squad-fineweb.supported.tsv
+│       └── topics.nanoknow-squad-fineweb.unsupported.tsv
 ├── pyproject.toml
 ├── requirements.txt
 ├── LICENSE
