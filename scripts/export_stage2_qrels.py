@@ -25,6 +25,12 @@ def validate_corpus_slug(corpus):
         )
 
 
+def corpus_dir_name(corpus):
+    if corpus == "fineweb":
+        return "fineweb-edu"
+    return corpus
+
+
 def validate_stage2_data(data, dataset):
     if data.get("dataset") != dataset:
         raise ValueError(
@@ -155,7 +161,11 @@ def main():
     )
     parser.add_argument(
         "--output-dir",
-        help="Output directory, default: questions-and-qrels/<dataset>",
+        help=(
+            "Dataset output directory. Default: questions-and-qrels/<dataset>. "
+            "Answers are written here; corpus-specific topics/qrels are "
+            "written under <output-dir>/<corpus-folder>."
+        ),
     )
     parser.add_argument(
         "--overwrite",
@@ -168,12 +178,15 @@ def main():
     data = load_pickle(args.input)
     results = validate_stage2_data(data, args.dataset)
 
-    output_dir = Path(args.output_dir or f"questions-and-qrels/{args.dataset}")
-    output_dir.mkdir(parents=True, exist_ok=True)
+    dataset_output_dir = Path(args.output_dir or f"questions-and-qrels/{args.dataset}")
+    corpus_output_dir = dataset_output_dir / corpus_dir_name(args.corpus)
+    dataset_output_dir.mkdir(parents=True, exist_ok=True)
+    corpus_output_dir.mkdir(parents=True, exist_ok=True)
 
     outputs = build_outputs(results, args.dataset, args.corpus)
     statuses = {}
     for filename, content in outputs.items():
+        output_dir = dataset_output_dir if filename.startswith("answers.") else corpus_output_dir
         statuses[filename] = write_output(
             output_dir / filename,
             content,
@@ -191,8 +204,10 @@ def main():
     print(f"  supported: {supported}")
     print(f"  unsupported: {unsupported}")
     print(f"  qrels: {count_lines(outputs[qrels_name])}")
-    print(f"  output_dir: {output_dir}")
+    print(f"  dataset_output_dir: {dataset_output_dir}")
+    print(f"  corpus_output_dir: {corpus_output_dir}")
     for filename, status in statuses.items():
+        output_dir = dataset_output_dir if filename.startswith("answers.") else corpus_output_dir
         print(f"  {status}: {output_dir / filename}")
 
 
