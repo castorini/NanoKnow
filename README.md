@@ -6,6 +6,8 @@ NanoKnow identifies which benchmark questions have answers in a model's training
 
 🎉 NanoKnow was accepted to SIGIR '26!
 
+**Update: We have new projections for ClimbMix-400B!** ClimbMix-400B is the corpus for the [2026 TREC RAG track](https://trec-rag.github.io/), which aims to build reusable collections that enable controlled studies of parametric and retrieval knowledge. See [the ClimbMix projection guide](docs/project-nq-and-squad-climbmix-400b.md) for details on how these projections were produced.
+
 Arxiv: https://arxiv.org/abs/2602.20122
 
 ## Overview
