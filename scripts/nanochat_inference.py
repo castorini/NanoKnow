@@ -3,14 +3,10 @@ import os
 import argparse
 import pickle
 import random
-import torch
 from tqdm import tqdm
 
 import sys
 # from nanochat.common import autodetect_device_type
-
-from pyserini.eval.evaluate_dpr_retrieval import has_answers, SimpleTokenizer, _normalize
-from pyserini.search.lucene import LuceneSearcher
 
 random.seed(42)
 
@@ -53,11 +49,37 @@ def load_text_row(docid, searcher):
     return json.loads(doc.raw())["text"]
 
 
-def load_unified_results_from_qrels(qrels_dir: str, dataset: str) -> list[dict]:
-    qrels_path = os.path.join(qrels_dir, f"qrels.nanoknow-{dataset}.supported.txt")
+def corpus_dir_name(corpus: str) -> str:
+    if corpus == "fineweb":
+        return "fineweb-edu"
+    return corpus
+
+
+def load_unified_results_from_qrels(
+    qrels_dir: str, dataset: str, corpus: str = "fineweb"
+) -> list[dict]:
+    qrels_dir = os.path.abspath(qrels_dir)
+    corpus_file_dir = qrels_dir
+    if not os.path.exists(
+        os.path.join(corpus_file_dir, f"qrels.nanoknow-{dataset}-{corpus}.supported.txt")
+    ):
+        corpus_file_dir = os.path.join(qrels_dir, corpus_dir_name(corpus))
+
     answers_path = os.path.join(qrels_dir, f"answers.nanoknow-{dataset}.jsonl")
-    supported_topics_path = os.path.join(qrels_dir, f"topics.nanoknow-{dataset}.supported.tsv")
-    unsupported_topics_path = os.path.join(qrels_dir, f"topics.nanoknow-{dataset}.unsupported.tsv")
+    if not os.path.exists(answers_path):
+        answers_path = os.path.join(
+            os.path.dirname(qrels_dir), f"answers.nanoknow-{dataset}.jsonl"
+        )
+
+    qrels_path = os.path.join(
+        corpus_file_dir, f"qrels.nanoknow-{dataset}-{corpus}.supported.txt"
+    )
+    supported_topics_path = os.path.join(
+        corpus_file_dir, f"topics.nanoknow-{dataset}-{corpus}.supported.tsv"
+    )
+    unsupported_topics_path = os.path.join(
+        corpus_file_dir, f"topics.nanoknow-{dataset}-{corpus}.unsupported.tsv"
+    )
 
     for required_path in [qrels_path, answers_path, supported_topics_path, unsupported_topics_path]:
         if not os.path.exists(required_path):
@@ -149,6 +171,8 @@ def load_unified_results_from_qrels(qrels_dir: str, dataset: str) -> list[dict]:
     return unified_results
 
 def load_inference_engine(checkpoint_dir, step, device, nanochat_dir=None):
+    import torch
+
     build_model = resolve_nanochat_build_model(nanochat_dir)
     device_obj = torch.device(device)
     model, tokenizer, _ = build_model(
@@ -160,6 +184,8 @@ def load_inference_engine(checkpoint_dir, step, device, nanochat_dir=None):
     return model, tokenizer, device_obj
 
 def generate(model, tokenizer, prompt, max_tokens=64):
+    import torch
+
     kwargs = dict(max_tokens=max_tokens, temperature=0, seed=random.randint(0, 2**31 - 1))
     conversation = {"messages": [{"role": "user", "content": prompt}]}
     prompt_tokens, _ = tokenizer.render_conversation(conversation)
@@ -292,9 +318,9 @@ def run_rag(model, tokenizer, results, fineweb_searcher):
 
     return outputs
 
-from datasets import load_dataset
-
 def run_rag_original_context(model, tokenizer, results, use_contaminated=True):
+    from datasets import load_dataset
+
     print("Loading SQuAD validation set...")
     squad_val = load_dataset("rajpurkar/squad", split="validation")
 
@@ -335,11 +361,19 @@ def run_rag_original_context(model, tokenizer, results, use_contaminated=True):
     return outputs
 
 if __name__ == '__main__':
+    from pyserini.search.lucene import LuceneSearcher
+
     parser = argparse.ArgumentParser()
     parser.add_argument("--checkpoint_dir", type=str, required=True)
     parser.add_argument("--step", type=int)
     parser.add_argument("--dataset", type=str, choices=["squad", "nq"], default="nq")
     parser.add_argument("--qrels_dir", type=str, required=True)
+    parser.add_argument(
+        "--corpus",
+        type=str,
+        default="fineweb",
+        help="Corpus slug used in topic/qrels filenames. Default: fineweb.",
+    )
     parser.add_argument("--fineweb_index_path", type=str, required=True)
     parser.add_argument("--output_dir", type=str, required=True)
     parser.add_argument("--device", type=str, default="cuda")
@@ -361,7 +395,7 @@ if __name__ == '__main__':
     output_dir = args.output_dir
     os.makedirs(output_dir, exist_ok=True)
     output_path = f"{output_dir}/{os.path.basename(args.checkpoint_dir.rstrip('/'))}_{args.dataset}"
-    unified_results = load_unified_results_from_qrels(args.qrels_dir, args.dataset)
+    unified_results = load_unified_results_from_qrels(args.qrels_dir, args.dataset, args.corpus)
     print(f"Loading FineWeb index from {args.fineweb_index_path}...")
     fineweb_searcher = LuceneSearcher(args.fineweb_index_path)
     print(f"FineWeb index loaded ({fineweb_searcher.num_docs:,} documents)")

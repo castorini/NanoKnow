@@ -6,6 +6,8 @@ NanoKnow identifies which benchmark questions have answers in a model's training
 
 🎉 NanoKnow was accepted to SIGIR '26!
 
+**Update: We have new projections for ClimbMix-400B!** ClimbMix-400B is the corpus for the [2026 TREC RAG track](https://trec-rag.github.io/), which aims to build reusable collections that enable controlled studies of parametric and retrieval knowledge. See [the ClimbMix projection guide](docs/project-nq-and-squad-climbmix-400b.md) for details on how these projections were produced.
+
 Arxiv: https://arxiv.org/abs/2602.20122
 
 ## Overview
@@ -23,12 +25,14 @@ The pipeline has three stages:
 
 ## Pre-built Qrels
 
-We provide pre-built qrels for [nanochat](https://github.com/karpathy/nanochat) models trained on [karpathy/fineweb-edu-100b-shuffle](https://huggingface.co/datasets/karpathy/fineweb-edu-100b-shuffle):
+We provide pre-built qrels for [karpathy/fineweb-edu-100b-shuffle](https://huggingface.co/datasets/karpathy/fineweb-edu-100b-shuffle), the corpus used to train [nanochat](https://github.com/karpathy/nanochat), and for ClimbMix-400B:
 
-| Dataset | Questions | Supported | Unsupported |
-|---------|-----------|-----------|---------------|
-| SQuAD   | 10,570    | 7,490 (71%) | 3,080 (29%) |
-| NQ-Open | 3,610     | 2,389 (66%) | 1,221 (34%) |
+| Corpus | Dataset | Questions | Supported | Unsupported | Qrels |
+|--------|---------|-----------|-----------|-------------|-------|
+| FineWeb-Edu | SQuAD   | 10,570 | 7,490 (71%) | 3,080 (29%) | 151,675 |
+| FineWeb-Edu | NQ-Open | 3,610  | 2,389 (66%) | 1,221 (34%) | 56,958 |
+| ClimbMix-400B | SQuAD   | 10,570 | 9,071 (86%) | 1,499 (14%) | 572,213 |
+| ClimbMix-400B | NQ-Open | 3,610  | 3,021 (84%) | 589 (16%)   | 323,986 |
 
 The pre-built files are organized by dataset under `questions-and-qrels/`:
 
@@ -36,22 +40,34 @@ The pre-built files are organized by dataset under `questions-and-qrels/`:
 questions-and-qrels/
 ├── nq/
 │   ├── answers.nanoknow-nq.jsonl
-│   ├── qrels.nanoknow-nq.supported.txt
-│   ├── topics.nanoknow-nq.supported.tsv
-│   └── topics.nanoknow-nq.unsupported.tsv
+│   ├── climbmix/
+│   │   ├── qrels.nanoknow-nq-climbmix.supported.txt
+│   │   ├── topics.nanoknow-nq-climbmix.supported.tsv
+│   │   └── topics.nanoknow-nq-climbmix.unsupported.tsv
+│   └── fineweb-edu/
+│       ├── qrels.nanoknow-nq-fineweb.supported.txt
+│       ├── topics.nanoknow-nq-fineweb.supported.tsv
+│       └── topics.nanoknow-nq-fineweb.unsupported.tsv
 └── squad/
     ├── answers.nanoknow-squad.jsonl
-    ├── qrels.nanoknow-squad.supported.txt
-    ├── topics.nanoknow-squad.supported.tsv
-    └── topics.nanoknow-squad.unsupported.tsv
+    ├── climbmix/
+    │   ├── qrels.nanoknow-squad-climbmix.supported.txt
+    │   ├── topics.nanoknow-squad-climbmix.supported.tsv
+    │   └── topics.nanoknow-squad-climbmix.unsupported.tsv
+    └── fineweb-edu/
+        ├── qrels.nanoknow-squad-fineweb.supported.txt
+        ├── topics.nanoknow-squad-fineweb.supported.tsv
+        └── topics.nanoknow-squad-fineweb.unsupported.tsv
 ```
 
 Each dataset directory contains:
 
-- `topics.nanoknow-<dataset>.supported.tsv`: supported questions as `qid<TAB>question`.
-- `topics.nanoknow-<dataset>.unsupported.tsv`: unsupported questions as `qid<TAB>question`.
 - `answers.nanoknow-<dataset>.jsonl`: gold answers as one JSON object per line, e.g. `{"qid": "0", "answer": ["14 December 1972 UTC", "December 1972"]}`.
-- `qrels.nanoknow-<dataset>.supported.txt`: TREC-format qrels for supported questions, e.g. `0 Q0 shard_01177_50695 1`.
+- `<corpus>/topics.nanoknow-<dataset>-<corpus>.supported.tsv`: corpus-supported questions as `qid<TAB>question`.
+- `<corpus>/topics.nanoknow-<dataset>-<corpus>.unsupported.tsv`: corpus-unsupported questions as `qid<TAB>question`.
+- `<corpus>/qrels.nanoknow-<dataset>-<corpus>.supported.txt`: TREC-format qrels for supported questions, e.g. `0 Q0 shard_01177_50695 1`.
+
+FineWeb-Edu files use the corpus slug `fineweb` in filenames and the directory name `fineweb-edu`.
 
 ## Installation
 
@@ -98,11 +114,26 @@ python scripts/project.py \
     --index_path /path/to/lucene-index \
     --output output/squad_stage1.pkl
 
+# Stage 1 using the Pyserini REST API, e.g. ClimbMix
+export PYSERINI_API_TOKEN="..."
+python scripts/project.py \
+    --dataset squad \
+    --stage 1 \
+    --retriever api \
+    --index_path climbmix-400b \
+    --output output/squad_climbmix_stage1.pkl
+
 # Stage 2: LLM verification (requires GPU)
 python scripts/project.py \
     --stage 2 \
     --input output/squad_stage1.pkl \
     --output output/squad_stage2.pkl
+
+# Export Stage 2 output to NanoKnow topics/qrels files
+python scripts/export_stage2_qrels.py \
+    --input output/squad_climbmix_stage2.pkl \
+    --dataset squad \
+    --corpus climbmix
 
 # Or run both stages together
 python scripts/project.py \
@@ -122,6 +153,7 @@ CHECKPOINT_DIR="${CHECKPOINT_DIR:-/path/to/nanochat-checkpoint}"
 STEP="${STEP:?Set STEP to the checkpoint step to evaluate}"
 DATASET="${DATASET:-nq}"
 QRELS_DIR="${QRELS_DIR:-questions-and-qrels/${DATASET}}"
+CORPUS="${CORPUS:-fineweb}"
 FINEWEB_INDEX_PATH="${FINEWEB_INDEX_PATH:-/path/to/fineweb-index}"
 OUTPUT_DIR="${OUTPUT_DIR:-output}"
 DEVICE="${DEVICE:-cuda}"
@@ -132,6 +164,7 @@ python scripts/nanochat_inference.py \
     --step "${STEP}" \
     --dataset "${DATASET}" \
     --qrels_dir "${QRELS_DIR}" \
+    --corpus "${CORPUS}" \
     --fineweb_index_path "${FINEWEB_INDEX_PATH}" \
     --output_dir "${OUTPUT_DIR}" \
     --device "${DEVICE}"
@@ -211,20 +244,31 @@ NanoKnow/
 │   └── evaluator.py           # Evaluation utilities
 ├── scripts/                   # Runnable scripts
 │   ├── project.py             # Run the projection pipeline
+│   ├── export_stage2_qrels.py # Export Stage 2 pickles to topics/qrels files
 │   ├── nanochat_inference.py  # Run nanochat checkpoint inference
 │   ├── evaluate_model_predictions.py  # Score predictions
 │   └── get_eval_scores.py     # Summarize scored evaluation results
 ├── questions-and-qrels/       # Pre-built benchmark questions, answers, and qrels
 │   ├── nq/
 │   │   ├── answers.nanoknow-nq.jsonl
-│   │   ├── qrels.nanoknow-nq.supported.txt
-│   │   ├── topics.nanoknow-nq.supported.tsv
-│   │   └── topics.nanoknow-nq.unsupported.tsv
+│   │   ├── climbmix/
+│   │   │   ├── qrels.nanoknow-nq-climbmix.supported.txt
+│   │   │   ├── topics.nanoknow-nq-climbmix.supported.tsv
+│   │   │   └── topics.nanoknow-nq-climbmix.unsupported.tsv
+│   │   └── fineweb-edu/
+│   │       ├── qrels.nanoknow-nq-fineweb.supported.txt
+│   │       ├── topics.nanoknow-nq-fineweb.supported.tsv
+│   │       └── topics.nanoknow-nq-fineweb.unsupported.tsv
 │   └── squad/
 │       ├── answers.nanoknow-squad.jsonl
-│       ├── qrels.nanoknow-squad.supported.txt
-│       ├── topics.nanoknow-squad.supported.tsv
-│       └── topics.nanoknow-squad.unsupported.tsv
+│       ├── climbmix/
+│       │   ├── qrels.nanoknow-squad-climbmix.supported.txt
+│       │   ├── topics.nanoknow-squad-climbmix.supported.tsv
+│       │   └── topics.nanoknow-squad-climbmix.unsupported.tsv
+│       └── fineweb-edu/
+│           ├── qrels.nanoknow-squad-fineweb.supported.txt
+│           ├── topics.nanoknow-squad-fineweb.supported.tsv
+│           └── topics.nanoknow-squad-fineweb.unsupported.tsv
 ├── pyproject.toml
 ├── requirements.txt
 ├── LICENSE

@@ -23,6 +23,6 @@ dependencies = [
 
 [project.optional-dependencies]
 retrieval = ["pyserini>=0.25.0"]
-evaluation = ["torch>=2.0.0", "transformers>=4.40.0", "duckdb>=1.0.0"]
+evaluation = ["torch>=2.0.0", "transformers>=4.40.0", "vllm>=0.8.0", "duckdb>=1.0.0"]
 analysis = ["pandas>=2.0.0", "matplotlib>=3.7.0"]
 all = ["nanoknow[retrieval,evaluation,analysis]"]
