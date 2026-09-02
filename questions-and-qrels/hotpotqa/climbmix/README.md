@@ -21,7 +21,7 @@ a ClimbMix document, and the gold answer follows from those same documents.
    document states the whole fact about the same entity, including every date, number and proper name,
    quoted verbatim. Answerability was then judged separately - the gold answer had to follow from the
    confirmed documents, not from the model's own knowledge. **1235 questions were
-   verified this way and 555 survived**, so roughly half to three quarters of the
+   verified this way and 553 survived**, so roughly half to three quarters of the
    questions retrieval called supported did not hold up.
 4. **Snippet audit.** Every cited snippet was machine-checked to occur verbatim in the document named.
 
@@ -41,12 +41,22 @@ This added 3 exact and 264 near-duplicate judgments.
 | | |
 |---|---:|
 | HotpotQA questions | 7405 |
-| supported | 555 |
-| unsupported | 6850 |
-| qrel pairs | 2891 |
+| supported | 553 |
+| unsupported | 6852 |
+| qrel pairs | 2879 |
 | mean documents per supported question | 5.21 |
 
 Answers are in `../answers.nanoknow-hotpotqa.jsonl`; qids match that file.
+
+## Benchmark leakage
+
+ClimbMix contains quiz pages and NLP papers that reproduce these benchmarks verbatim - question,
+answer key and all. A document like that will "support" a question perfectly while making it
+worthless for retrieval evaluation, since the system would be graded against a copy of the answer
+key. 4 questions whose evidence document poses the question and gives its
+answer were excluded on that basis. The detector is deliberately conservative in the direction of
+dropping: an article that merely shares wording with the question is NOT treated as leakage, because
+these questions were written from such articles and that overlap is the grounding working correctly.
 
 ## Caveat on coverage
 
